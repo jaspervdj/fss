@@ -57,11 +57,8 @@
 (defun heap-merge (heap1 heap2)
     (declare (xargs :measure (length heap1)))
     (cond
-        ; Heap 1 is empty: return heap 2
-        ((not heap1) heap2)
-
-        ; Heap 2 is empty: return heap 1
-        ((not heap2) heap1)
+        ((heap-is-empty heap1) heap2)
+        ((heap-is-empty heap2) heap1)
 
         ; Neither are empty. The ranks are equal and we need to merge
         ((= (tree-rank (car heap1)) (tree-rank (car heap2)))
@@ -85,11 +82,11 @@
 ; Auxiliary function which starts with a min-tree. We only need to check the
 ; roots of the different trees.
 (defun heap-min-tree (min-tree heap)
-    (if heap
+    (if (heap-is-empty heap)
+        min-tree
         (if (< (tree-root-key min-tree) (tree-root-key (car heap)))
             (heap-min-tree min-tree (cdr heap))
-            (heap-min-tree (car heap) (cdr heap)))
-        min-tree))
+            (heap-min-tree (car heap) (cdr heap)))))
 
 (defun heap-min (heap)
     (tree-root-value (heap-min-tree (car heap) (cdr heap))))
@@ -104,13 +101,13 @@
 
 ; Checks that all trees in the heap are sorted by rank.
 (defun heap-check-sorted (heap)
-    (if heap
-        (if (cdr heap)
+    (if (heap-is-empty heap)
+        t
+        (if (heap-is-empty (cdr heap))
+            t
             (and
-                (= (tree-rank (car heap)) (tree-rank (cadr heap)))
-                (heap-check-sorted (cdr heap)))
-            t)
-        t))
+                (< (tree-rank (car heap)) (tree-rank (cadr heap)))
+                (heap-check-sorted (cdr heap))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Testing crap
