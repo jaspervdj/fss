@@ -6,49 +6,56 @@
 ; - (ld "priority-queue.lisp" :ld-skip-proofsp t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Binomial trees
+; Red-black trees
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun tree-singleton (k v)
-    (list 0 k v NIL))
+(defconst *red* 0)
+(defconst *black* 1)
 
-(defun tree-rank (tree)
-    (car tree))
+(defun singleton (k v)
+    (list *black* k v NIL NIL))
 
-(defun tree-root-key (tree)
-    (cadr tree))
+(defun node-color (node)
+    (car node))
 
-(defun tree-root-value (tree)
-    (caddr tree))
+(defun node-key (node)
+    (cadr node))
 
-(defun tree-children (tree)
-    (cadddr tree))
+(defun node-value (node)
+    (nth 2 node))
 
-; Private
-(defun tree-add-child (tree child)
-    (list
-        (+ (tree-rank tree) 1)
-        (tree-root-key tree)
-        (tree-root-value tree)
-        (cons child (tree-children tree))))
+(defun node-left (node)
+    (nth 3 node))
 
-; tree1 and tree2 must have the same rank. We should probably check this
-; somewhere.
-(defun tree-merge (tree1 tree2)
-    (if (< (tree-root-key tree1) (tree-root-key tree2))
-        (tree-add-child tree1 tree2)
-        (tree-add-child tree2 tree1)))
+(defun node-right (node)
+    (nth 4 node))
 
+(defun node-insert (node k v)
+    (if node
+        (if (< k (node-key node))
+            (list
+                (node-color node)
+                (node-key node)
+                (node-value node)
+                (node-insert (node-left node) k v)
+                (node-right node))
+            (list
+                (node-color node)
+                (node-key node)
+                (node-value node)
+                (node-left node)
+                (node-insert (node-right node) k v)))
+        (list *red* k v NIL NIL)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Testing crap
+; Test
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun test-tree ()
-    (tree-merge
-        (tree-merge
-            (tree-singleton 10 "Gilles")
-            (tree-singleton 2 "Javache"))
-        (tree-merge
-            (tree-singleton 5 "Pipi")
-            (tree-singleton 6 "Kaka"))))
+    (node-insert
+        (node-insert
+            (node-insert
+                (singleton 1 "Hi")
+                2 "sup")
+            5 "Kaka")
+        0 "Pipi"))
