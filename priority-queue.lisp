@@ -53,6 +53,7 @@
 (defun heap-is-empty (heap)
     (not heap))
 
+; The two heaps MUST be sorted
 (defun heap-merge (heap1 heap2)
     (declare (xargs :measure (length heap1)))
     (cond
@@ -80,6 +81,18 @@
 
 (defun heap-insert (heap k v)
     (heap-merge heap (heap-singleton k v)))
+
+; Auxiliary function which starts with a min-tree. We only need to check the
+; roots of the different trees.
+(defun heap-min-tree (min-tree heap)
+    (if heap
+        (if (< (tree-root-key min-tree) (tree-root-key (car heap)))
+            (heap-min-tree min-tree (cdr heap))
+            (heap-min-tree (car heap) (cdr heap)))
+        min-tree))
+
+(defun heap-min (heap)
+    (tree-root-value (heap-min-tree (car heap) (cdr heap))))
 
 (defun heap-from-list (ls)
     (if ls
@@ -118,4 +131,5 @@
             '(10 "Gilles")
             '(2 "Javache")
             '(5 "Pipi")
+            '(0 "VERY IMPORTANT GUY")
             '(6 "Kaka"))))
