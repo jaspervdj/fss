@@ -89,6 +89,16 @@
             (cadr (car ls)))
         (heap-empty)))
 
+; Checks that all trees in the heap are sorted by rank.
+(defun heap-check-sorted (heap)
+    (if heap
+        (if (cdr heap)
+            (and
+                (= (tree-rank (car heap)) (tree-rank (cadr heap)))
+                (heap-check-sorted (cdr heap)))
+            t)
+        t))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Testing crap
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
