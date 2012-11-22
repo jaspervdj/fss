@@ -40,6 +40,10 @@
         (tree-add-child tree1 tree2)
         (tree-add-child tree2 tree1)))
 
+; Check that the ordering of children is reversed. This is caused by the way we
+; merge trees, but it's not necessarily a bad thing.
+; TODO
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Binomial heaps
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -81,15 +85,18 @@
 
 ; Auxiliary function which starts with a min-tree. We only need to check the
 ; roots of the different trees.
-(defun heap-min-tree (min-tree heap)
-    (if (heap-is-empty heap)
-        min-tree
-        (if (< (tree-root-key min-tree) (tree-root-key (car heap)))
-            (heap-min-tree min-tree (cdr heap))
-            (heap-min-tree (car heap) (cdr heap)))))
+;
+; Because we want to reuse this function for heap-delete-min, this function
+; works *like* (but not really) a zipper; we return:
+;
+;   (reversed left part of list, min element, right part of list)
+;
+; TODO
 
 (defun heap-min (heap)
     (tree-root-value (heap-min-tree (car heap) (cdr heap))))
+
+; (defun heap-delete-min
 
 (defun heap-from-list (ls)
     (if ls
