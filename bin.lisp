@@ -3,8 +3,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Single-item queue
+
 (defun queue-singleton (k v)
     (list k v nil nil))
+
+; Some accessors for queues, this improves readability
 
 (defun queue-key (queue)
     (car queue))
@@ -18,6 +21,9 @@
 (defun queue-right (queue)
     (cadddr queue))
 
+; Count the number of nodes in the queue. Useful as measure, to check that
+; recursion ends at some point.
+
 (defun queue-size (queue)
     (if (endp queue)
         0
@@ -26,7 +32,9 @@
             (queue-size (queue-left queue))
             (queue-size (queue-right queue)))))
 
-(defun queue-insert (queue k v)
+; Insert a new item into the queue.
+
+(defun queue-insert (k v queue)
     (declare (xargs :measure (queue-size queue)))
     (if (endp queue)
         (queue-singleton k v)
@@ -36,13 +44,25 @@
                 (list
                     (queue-key queue)
                     (queue-value queue)
-                    (queue-insert (queue-left queue) k v)
+                    (queue-insert k v (queue-left queue))
                     (queue-right queue))
                 (list
                     (queue-key queue)
                     (queue-value queue)
                     (queue-left queue)
-                    (queue-insert (queue-right queue) k v))))))
+                    (queue-insert k v (queue-right queue)))))))
+
+; Find the minimum node of the queue. This is simply the leftmost node. It does
+; not work for empty queues.
+
+(defun queue-find-min (queue)
+    (if (endp (queue-left queue))
+        queue
+        (let
+            ((left-min (queue-find-min (queue-left queue))))
+            (if (< (queue-key left-min) (queue-key queue))
+                left-min
+                queue))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue properties
@@ -50,21 +70,21 @@
 
 ; Check that all items in the queue are larger or smaller than a given item
 
-(defun queue-all-smaller (queue x)
+(defun queue-all-smaller (x queue)
     (if (endp queue)
         t
         (and
             (< (queue-key queue) x)
-            (queue-all-smaller (queue-left queue) x)
-            (queue-all-smaller (queue-right queue) x))))
+            (queue-all-smaller x (queue-left queue))
+            (queue-all-smaller x (queue-right queue)))))
 
-(defun queue-all-larger (queue x)
+(defun queue-all-larger (x queue)
     (if (endp queue)
         t
         (and
             (> (queue-key queue) x)
-            (queue-all-larger (queue-left queue) x)
-            (queue-all-larger (queue-right queue) x))))
+            (queue-all-larger x (queue-left queue))
+            (queue-all-larger x (queue-right queue)))))
 
 ; A general validity check for the queue...
 
@@ -73,8 +93,8 @@
         t
         (and
             (integerp (queue-key queue))
-            (queue-all-smaller (queue-left queue) (queue-key queue))
-            (queue-all-larger (queue-right queue) (queue-key queue))
+            (queue-all-smaller (queue-key queue) (queue-left queue))
+            (queue-all-larger (queue-key queue) (queue-right queue))
             (queue-valid (queue-left queue))
             (queue-valid (queue-right queue)))))
 
@@ -95,15 +115,15 @@
     (implies
         (and
             (< k x)
-            (queue-all-smaller queue x))
-        (queue-all-smaller (queue-insert queue k v) x)))
+            (queue-all-smaller x queue))
+        (queue-all-smaller x (queue-insert k v queue))))
 
 (defthm queue-insert-larger
     (implies
         (and
             (> k x)
-            (queue-all-larger queue x))
-        (queue-all-larger (queue-insert queue k v) x)))
+            (queue-all-larger x queue))
+        (queue-all-larger x (queue-insert k v queue))))
 
 ; A theorem that insertion preserves validity
 
@@ -112,4 +132,16 @@
         (and
             (queue-valid queue)
             (integerp k))
-        (queue-valid (queue-insert queue k v))))
+        (queue-valid (queue-insert k v queue))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Playing around/tests
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(skip-proofs
+    (defun test-tree ()
+        (queue-insert 10 "Internet"
+            (queue-insert 15 "Food"
+                (queue-insert 12 "Women"
+                    (queue-insert 17 "Shelter"
+                        (queue-singleton 14 "Beer")))))))
