@@ -88,21 +88,21 @@
 
 ; Check that all items in the queue are larger or smaller than a given item
 
-(defun queue-all-smaller (x queue)
+(defun queue-all-lt (x queue)
     (if (queue-empty queue)
         t
         (and
             (< (queue-key queue) x)
-            (queue-all-smaller x (queue-left queue))
-            (queue-all-smaller x (queue-right queue)))))
+            (queue-all-lt x (queue-left queue))
+            (queue-all-lt x (queue-right queue)))))
 
-(defun queue-all-larger (x queue)
+(defun queue-all-get (x queue)
     (if (queue-empty queue)
         t
         (and
-            (> (queue-key queue) x)
-            (queue-all-larger x (queue-left queue))
-            (queue-all-larger x (queue-right queue)))))
+            (>= (queue-key queue) x)
+            (queue-all-get x (queue-left queue))
+            (queue-all-get x (queue-right queue)))))
 
 ; A general validity check for the queue...
 
@@ -111,20 +111,10 @@
         t
         (and
             (integerp (queue-key queue))
-            (queue-all-smaller (queue-key queue) (queue-left queue))
-            (queue-all-larger (queue-key queue) (queue-right queue))
+            (queue-all-lt (queue-key queue) (queue-left queue))
+            (queue-all-get (queue-key queue) (queue-right queue))
             (queue-valid (queue-left queue))
             (queue-valid (queue-right queue)))))
-
-; Check if a queue contains an element with the given priority 'x'
-
-(defun queue-contains (x queue)
-    (if (queue-empty queue)
-        nil
-        (or
-            (= (queue-key queue) x)
-            (queue-contains x (queue-left queue))
-            (queue-contains x (queue-right queue)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue theorems
@@ -143,15 +133,15 @@
     (implies
         (and
             (< k x)
-            (queue-all-smaller x queue))
-        (queue-all-smaller x (queue-insert k v queue))))
+            (queue-all-lt x queue))
+        (queue-all-lt x (queue-insert k v queue))))
 
 (defthm queue-insert-larger
     (implies
         (and
-            (> k x)
-            (queue-all-larger x queue))
-        (queue-all-larger x (queue-insert k v queue))))
+            (>= k x)
+            (queue-all-get x queue))
+        (queue-all-get x (queue-insert k v queue))))
 
 ; Utility: if 'x' is smaller than the key, it's smaller than everything in the
 ; right child.
@@ -161,7 +151,7 @@
 ;         (and
 ;             (queue-valid queue)
 ;             (< x (queue-key queue)))
-;         (queue-all-larger x (queue-right queue))))
+;         (queue-all-get x (queue-right queue))))
 
 ; Another utility: if we delete the minimum from a queue, this does not change
 ; the maximum value...
@@ -170,9 +160,9 @@
     (implies
         (and
             (integerp x)
-            (queue-all-smaller x queue)
+            (queue-all-lt x queue)
             (not (queue-empty queue)))
-        (queue-all-smaller x (queue-delete-min queue))))
+        (queue-all-lt x (queue-delete-min queue))))
 
 ; A theorem that insertion preserves validity
 
@@ -192,36 +182,26 @@
             (queue-valid queue))
         (queue-valid (queue-delete-min queue))))
 
-; If we find a minimum, or queue should contain this.
+; Utility: transitivity of queue-all-get
 
-(defthm queue-find-min-contains
+(defthm queue-all-get-transitivity
+    (implies
+        (and
+            (<= y x)
+            (queue-all-get x queue))
+        (queue-all-get y queue)))
+
+; Utility: all elements are larger than the minimum (this one takes a while to
+; prove...)
+
+(defthm queue-find-min-all-get
     (implies
         (and
             (not (queue-empty queue))
             (queue-valid queue))
-        (queue-contains (queue-key (queue-find-min queue)) queue)))
-
-; If 'x' is smaller than all elements in the queue... it should also be smaller
-; than the `queue-find-min` result
-
-; TODO unnecessary?
-; (defthm queue-find-min-bounded
-;     (implies
-;         (and
-;             (not (queue-empty queue))
-;             (queue-all-larger x queue))
-;         (< x (queue-key (queue-find-min queue)))))
-
-; Utility: all elements in the right child are larger than the minimum
-
-; (defthm queue-find-min-right-all-larger
-;     (implies
-;         (and
-;             (not (queue-empty queue))
-;             (queue-valid queue))
-;         (queue-all-larger
-;             (queue-key (queue-find-min queue))
-;             (queue-right queue))))
+        (queue-all-get
+            (queue-key (queue-find-min queue))
+            queue)))
 
 ; Another utility... if all elements in the queue are larger than a given 'x',
 ; the minimum must also be larger than this 'x'.
@@ -229,9 +209,9 @@
 ; (defthm queue-find-min-all-larger
 ;     (implies
 ;         (and
-;             (queue-all-larger x queue)
+;             (queue-all-get x queue)
 ;             (< y x))
-;         (queue-all-larger y queue)))
+;         (queue-all-get y queue)))
 
 ; If 'x' is smaller than all elements in the queue... if we delete the minimum
 ; element from the queue, this must still hold.
@@ -240,8 +220,8 @@
 ;     (implies
 ;         (and
 ;             (not (queue-empty queue))
-;             (queue-all-larger x queue))
-;         (queue-all-larger x (queue-delete-min queue))))
+;             (queue-all-get x queue))
+;         (queue-all-get x (queue-delete-min queue))))
 
 ; TODO
 
@@ -250,7 +230,7 @@
 ;         (and
 ;             (not (queue-empty queue))
 ;             (queue-valid queue))
-;         (queue-all-larger
+;         (queue-all-get
 ;             (queue-key (queue-find-min queue))
 ;             (queue-delete-min queue))))
 
