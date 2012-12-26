@@ -26,15 +26,6 @@
 (defun node-value (node)
     (cdr node))
 
-; Check the structure of a queue: (integer, value) tuples in a list
-(defun valid-queue (queue)
-    (if (emptyp queue)
-        t
-        (and
-            (consp (car queue))
-            (integerp (node-priority (car queue)))
-            (valid-queue (cdr queue)))))
-
 ; Find minimum value
 (defun find-min-node (queue)
     (if (emptyp (cdr queue))
@@ -47,13 +38,22 @@
                 car-min
                 cdr-min))))
 
-; Find the minimum priority
+; Find the minimum value
 (defun find-min (queue)
     (node-value (find-min-node queue)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Verification
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Check the structure of a queue: (integer, value) tuples in a list
+(defun valid-queue (queue)
+    (if (emptyp queue)
+        t
+        (and
+            (consp (car queue))
+            (integerp (node-priority (car queue)))
+            (valid-queue (cdr queue)))))
 
 ; The empty queue should be valid
 (defthm empty-valid
