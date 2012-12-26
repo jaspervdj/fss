@@ -116,6 +116,16 @@
             (queue-valid (queue-left queue))
             (queue-valid (queue-right queue)))))
 
+; Check if a queue contains an element with the given priority 'x'
+
+(defun queue-contains (x queue)
+    (if (queue-empty queue)
+        nil
+        (or
+            (= (queue-key queue) x)
+            (queue-contains x (queue-left queue))
+            (queue-contains x (queue-right queue)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue theorems
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -181,6 +191,15 @@
             (not (queue-empty queue))
             (queue-valid queue))
         (queue-valid (queue-delete-min queue))))
+
+; If we find a minimum, or queue should contain this.
+
+(defthm queue-find-min-contains
+    (implies
+        (and
+            (not (queue-empty queue))
+            (queue-valid queue))
+        (queue-contains (queue-key (queue-find-min queue)) queue)))
 
 ; If 'x' is smaller than all elements in the queue... it should also be smaller
 ; than the `queue-find-min` result
