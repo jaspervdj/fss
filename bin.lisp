@@ -143,6 +143,16 @@
             (queue-all-larger x queue))
         (queue-all-larger x (queue-insert k v queue))))
 
+; Utility: if 'x' is smaller than the key, it's smaller than everything in the
+; right child.
+
+; (defthm queue-right-larger
+;     (implies
+;         (and
+;             (queue-valid queue)
+;             (< x (queue-key queue)))
+;         (queue-all-larger x (queue-right queue))))
+
 ; Another utility: if we delete the minimum from a queue, this does not change
 ; the maximum value...
 
@@ -175,12 +185,24 @@
 ; If 'x' is smaller than all elements in the queue... it should also be smaller
 ; than the `queue-find-min` result
 
-(defthm queue-find-min-bounded
-    (implies
-        (and
-            (not (queue-empty queue))
-            (queue-all-larger x queue))
-        (< x (queue-key (queue-find-min queue)))))
+; TODO unnecessary?
+; (defthm queue-find-min-bounded
+;     (implies
+;         (and
+;             (not (queue-empty queue))
+;             (queue-all-larger x queue))
+;         (< x (queue-key (queue-find-min queue)))))
+
+; Utility: all elements in the right child are larger than the minimum
+
+; (defthm queue-find-min-right-all-larger
+;     (implies
+;         (and
+;             (not (queue-empty queue))
+;             (queue-valid queue))
+;         (queue-all-larger
+;             (queue-key (queue-find-min queue))
+;             (queue-right queue))))
 
 ; Another utility... if all elements in the queue are larger than a given 'x',
 ; the minimum must also be larger than this 'x'.
