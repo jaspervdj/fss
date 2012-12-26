@@ -21,11 +21,16 @@
 (defun queue-right (queue)
     (cadddr queue))
 
+; Check if a queue is empty
+
+(defun queue-empty (queue)
+    (endp queue))
+
 ; Count the number of nodes in the queue. Useful as measure, to check that
 ; recursion ends at some point.
 
 (defun queue-size (queue)
-    (if (endp queue)
+    (if (queue-empty queue)
         0
         (+
             1
@@ -36,7 +41,7 @@
 
 (defun queue-insert (k v queue)
     (declare (xargs :measure (queue-size queue)))
-    (if (endp queue)
+    (if (queue-empty queue)
         (queue-singleton k v)
         (if (= (queue-key queue) k)
             queue
@@ -56,7 +61,7 @@
 ; not work for empty queues.
 
 (defun queue-find-min (queue)
-    (if (endp (queue-left queue))
+    (if (queue-empty (queue-left queue))
         queue
         (let
             ((left-min (queue-find-min (queue-left queue))))
@@ -71,7 +76,7 @@
 ; Check that all items in the queue are larger or smaller than a given item
 
 (defun queue-all-smaller (x queue)
-    (if (endp queue)
+    (if (queue-empty queue)
         t
         (and
             (< (queue-key queue) x)
@@ -79,7 +84,7 @@
             (queue-all-smaller x (queue-right queue)))))
 
 (defun queue-all-larger (x queue)
-    (if (endp queue)
+    (if (queue-empty queue)
         t
         (and
             (> (queue-key queue) x)
@@ -89,7 +94,7 @@
 ; A general validity check for the queue...
 
 (defun queue-valid (queue)
-    (if (endp queue)
+    (if (queue-empty queue)
         t
         (and
             (integerp (queue-key queue))
@@ -133,6 +138,16 @@
             (queue-valid queue)
             (integerp k))
         (queue-valid (queue-insert k v queue))))
+
+; If 'x' is smaller than all elements in the queue... it should also be smaller
+; than the `queue-find-min` result
+
+(defthm queue-find-min-bounded
+    (implies
+        (and
+            (not (queue-empty queue))
+            (queue-all-larger x queue))
+        (< x (queue-key (queue-find-min queue)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
