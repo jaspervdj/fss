@@ -143,6 +143,17 @@
             (queue-all-larger x queue))
         (queue-all-larger x (queue-insert k v queue))))
 
+; Another utility: if we delete the minimum from a queue, this does not change
+; the maximum value...
+
+(defthm queue-delete-min-all-smaller
+    (implies
+        (and
+            (integerp x)
+            (queue-all-smaller x queue)
+            (not (queue-empty queue)))
+        (queue-all-smaller x (queue-delete-min queue))))
+
 ; A theorem that insertion preserves validity
 
 (defthm queue-insert-valid
@@ -151,6 +162,15 @@
             (queue-valid queue)
             (integerp k))
         (queue-valid (queue-insert k v queue))))
+
+; A theorem that deletion preserves validity
+
+(defthm queue-delete-min-valid
+    (implies
+        (and
+            (not (queue-empty queue))
+            (queue-valid queue))
+        (queue-valid (queue-delete-min queue))))
 
 ; If 'x' is smaller than all elements in the queue... it should also be smaller
 ; than the `queue-find-min` result
@@ -161,6 +181,37 @@
             (not (queue-empty queue))
             (queue-all-larger x queue))
         (< x (queue-key (queue-find-min queue)))))
+
+; Another utility... if all elements in the queue are larger than a given 'x',
+; the minimum must also be larger than this 'x'.
+
+; (defthm queue-find-min-all-larger
+;     (implies
+;         (and
+;             (queue-all-larger x queue)
+;             (< y x))
+;         (queue-all-larger y queue)))
+
+; If 'x' is smaller than all elements in the queue... if we delete the minimum
+; element from the queue, this must still hold.
+
+; (defthm queue-delete-min-all-larger
+;     (implies
+;         (and
+;             (not (queue-empty queue))
+;             (queue-all-larger x queue))
+;         (queue-all-larger x (queue-delete-min queue))))
+
+; TODO
+
+; (defthm queue-find-min-delete-min
+;     (implies
+;         (and
+;             (not (queue-empty queue))
+;             (queue-valid queue))
+;         (queue-all-larger
+;             (queue-key (queue-find-min queue))
+;             (queue-delete-min queue))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
