@@ -205,16 +205,28 @@
 ;             (queue-all-get x queue))
 ;         (queue-all-get x (queue-delete-min queue))))
 
-; TODO
+; If we delete the minimum from a tree, all elements in the tree must be greater
+; or equal to this minimum.
 
-; (defthm queue-find-min-delete-min
-;     (implies
-;         (and
-;             (not (queue-empty queue))
-;             (queue-valid queue))
-;         (queue-all-get
-;             (queue-key (queue-find-min queue))
-;             (queue-delete-min queue))))
+(defthm queue-find-min-delete-min
+    (implies
+        (and
+            (not (queue-empty queue))
+            (queue-valid queue))
+        (queue-all-get
+            (queue-key (queue-find-min queue))
+            (queue-delete-min queue))))
+
+; After deleting the minimum, the tree must be smaller in size
+
+(defthm queue-delete-min-smaller-size
+    (implies
+        (and
+            (not (queue-empty queue))
+            (queue-valid queue))
+        (<
+            (queue-size (queue-delete-min queue))
+            (queue-size queue))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
