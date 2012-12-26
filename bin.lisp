@@ -86,7 +86,7 @@
 ; Queue properties
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; Check that all items in the queue are larger or smaller than a given item
+; Check that all elements in the queue are less than a given item 'x'
 
 (defun queue-all-lt (x queue)
     (if (queue-empty queue)
@@ -95,6 +95,8 @@
             (< (queue-key queue) x)
             (queue-all-lt x (queue-left queue))
             (queue-all-lt x (queue-right queue)))))
+
+; Check that all elements in the queue are greater or equal to a given item 'x'
 
 (defun queue-all-get (x queue)
     (if (queue-empty queue)
@@ -142,16 +144,6 @@
             (>= k x)
             (queue-all-get x queue))
         (queue-all-get x (queue-insert k v queue))))
-
-; Utility: if 'x' is smaller than the key, it's smaller than everything in the
-; right child.
-
-; (defthm queue-right-larger
-;     (implies
-;         (and
-;             (queue-valid queue)
-;             (< x (queue-key queue)))
-;         (queue-all-get x (queue-right queue))))
 
 ; Another utility: if we delete the minimum from a queue, this does not change
 ; the maximum value...
@@ -202,16 +194,6 @@
         (queue-all-get
             (queue-key (queue-find-min queue))
             queue)))
-
-; Another utility... if all elements in the queue are larger than a given 'x',
-; the minimum must also be larger than this 'x'.
-
-; (defthm queue-find-min-all-larger
-;     (implies
-;         (and
-;             (queue-all-get x queue)
-;             (< y x))
-;         (queue-all-get y queue)))
 
 ; If 'x' is smaller than all elements in the queue... if we delete the minimum
 ; element from the queue, this must still hold.
