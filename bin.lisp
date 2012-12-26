@@ -69,6 +69,19 @@
                 left-min
                 queue))))
 
+; Delete the minimum node of the queue.
+
+(defun queue-delete-min (queue)
+    (if (queue-empty (queue-left queue))
+        ; No left child, hence this node has the smallest key, and the updated
+        ; queue is simply the right child.
+        (queue-right queue)
+        (list
+            (queue-key queue)
+            (queue-value queue)
+            (queue-delete-min (queue-left queue))
+            (queue-right queue))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue properties
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
