@@ -340,15 +340,14 @@
 ; priority to 'x', the queue should now contain a value 'v' with priority 'x'.
 
 ; TODO: additionally, it should NOT contain ('k', 'v')
-;
-; (defthm queue-change-priority-contains
-;     (implies
-;         (and
-;             (integerp k)
-;             (integerp x)
-;             (queue-valid queue)
-;             (queue-contains k v queue))
-;         (queue-contains x v (queue-change-priority x v queue))))
+(defthm queue-change-priority-contains
+    (implies
+        (and
+            (integerp k)
+            (integerp x)
+            (queue-valid queue)
+            (queue-contains k v queue))
+        (queue-contains x v (queue-change-priority x v queue))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
