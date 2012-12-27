@@ -232,9 +232,8 @@
     (implies
         (and
             (queue-valid queue)
-            (not (queue-null queue))
             (integerp k))
-        (queue-contains 1 2 (queue-insert 1 2 queue))))
+        (queue-contains k v (queue-insert k v queue))))
 
 ; A theorem that deletion preserves validity
 
@@ -308,6 +307,26 @@
             (queue-valid q2))
         (queue-valid (queue-merge q1 q2))))
 
+; Merging should preserve the contained elements
+
+(defthm queue-merge-contains-right
+    (implies
+        (and
+            (integerp k)
+            (queue-valid q1)
+            (queue-valid q2)
+            (queue-contains k v q2))
+        (queue-contains k v (queue-merge q1 q2))))
+
+(defthm queue-merge-contains-left
+    (implies
+        (and
+            (integerp k)
+            (queue-valid q1)
+            (queue-valid q2)
+            (queue-contains k v q1))
+        (queue-contains k v (queue-merge q1 q2))))
+
 ; Changing the priority of an item preserves validity
 
 (defthm queue-change-priority-valid
@@ -316,6 +335,20 @@
             (integerp k)
             (queue-valid queue))
         (queue-valid (queue-change-priority k v queue))))
+
+; Suppose the queue contains a value 'v' with priority 'k'. If we change the
+; priority to 'x', the queue should now contain a value 'v' with priority 'x'.
+
+; TODO: additionally, it should NOT contain ('k', 'v')
+;
+; (defthm queue-change-priority-contains
+;     (implies
+;         (and
+;             (integerp k)
+;             (integerp x)
+;             (queue-valid queue)
+;             (queue-contains k v queue))
+;         (queue-contains x v (queue-change-priority x v queue))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
