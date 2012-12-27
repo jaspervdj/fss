@@ -109,7 +109,8 @@
                 (queue-change-priority k v (queue-right queue))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Queue properties
+; Queue properties: not really useful to the end user, but very useful for
+; proving stuff.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; Check that all elements in the queue are less than a given item 'x'

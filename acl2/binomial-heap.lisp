@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; - (set-ld-redefinition-action '(:doit . :overwrite) state)
-; - (ld "priority-queue.lisp" :ld-skip-proofsp t)
+; - (ld "binomial-heap.lisp" :ld-skip-proofsp t)
 ; - :program
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
