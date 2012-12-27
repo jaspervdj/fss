@@ -43,19 +43,17 @@
     (declare (xargs :measure (queue-size queue)))
     (if (queue-empty queue)
         (queue-singleton k v)
-        (if (= (queue-key queue) k)
-            queue
-            (if (< k (queue-key queue))
-                (list
-                    (queue-key queue)
-                    (queue-value queue)
-                    (queue-insert k v (queue-left queue))
-                    (queue-right queue))
-                (list
-                    (queue-key queue)
-                    (queue-value queue)
-                    (queue-left queue)
-                    (queue-insert k v (queue-right queue)))))))
+        (if (< k (queue-key queue))
+            (list
+                (queue-key queue)
+                (queue-value queue)
+                (queue-insert k v (queue-left queue))
+                (queue-right queue))
+            (list
+                (queue-key queue)
+                (queue-value queue)
+                (queue-left queue)
+                (queue-insert k v (queue-right queue))))))
 
 ; Find the minimum node of the queue. This is simply the leftmost node. It does
 ; not work for empty queues.
@@ -106,6 +104,19 @@
             (queue-all-get x (queue-left queue))
             (queue-all-get x (queue-right queue)))))
 
+; Check that the queue contains a key 'k' with value 'v'. This is a slow
+; operation, only meant for proving stuff.
+
+(defun queue-contains (k v queue)
+    (if (queue-empty queue)
+        nil
+        (or
+            (and
+                (= (queue-key queue) k)
+                (equal (queue-value queue) v))
+            (queue-contains k v (queue-left queue))
+            (queue-contains k v (queue-right queue)))))
+
 ; A general validity check for the queue...
 
 (defun queue-valid (queue)
@@ -122,12 +133,17 @@
 ; Queue theorems
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; A simple queue with one element is valid (easy)
+; A singleton queue with one element is valid (easy)
 
 (defthm queue-singleton-valid
     (implies
         (integerp k)
         (queue-valid (queue-singleton k v))))
+
+; A singleton queue contains the element we inserted
+
+(defthm queue-singleton-contains
+    (queue-contains k v (queue-singleton k v)))
 
 ; Two utility theorems to make `queue-insert-valid` work
 
@@ -164,6 +180,28 @@
             (queue-valid queue)
             (integerp k))
         (queue-valid (queue-insert k v queue))))
+
+; A theorem that if a queue contains a pair, and we insert an item, the queue
+; still contains the first pair
+
+(defthm queue-insert-already-contains
+    (implies
+        (and
+            (queue-valid queue)
+            (queue-contains k v queue)
+            (integerp k)
+            (integerp x))
+        (queue-contains k v (queue-insert x y queue))))
+
+; If we insert an item, the resulting queue must contain that pair
+
+(defthm queue-insert-contains
+    (implies
+        (and
+            (queue-valid queue)
+            (not (queue-empty queue))
+            (integerp k))
+        (queue-contains 1 2 (queue-insert 1 2 queue))))
 
 ; A theorem that deletion preserves validity
 
