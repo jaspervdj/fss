@@ -308,6 +308,15 @@
             (queue-valid q2))
         (queue-valid (queue-merge q1 q2))))
 
+; Changing the priority of an item preserves validity
+
+(defthm queue-change-priority-valid
+    (implies
+        (and
+            (integerp k)
+            (queue-valid queue))
+        (queue-valid (queue-change-priority k v queue))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
