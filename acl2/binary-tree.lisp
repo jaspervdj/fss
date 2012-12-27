@@ -284,16 +284,6 @@
             (queue-key (queue-find-min queue))
             queue)))
 
-; If 'x' is smaller than all elements in the queue... if we delete the minimum
-; element from the queue, this must still hold.
-
-; (defthm queue-delete-min-all-larger
-;     (implies
-;         (and
-;             (not (queue-null queue))
-;             (queue-all-get x queue))
-;         (queue-all-get x (queue-delete-min queue))))
-
 ; If we delete the minimum from a tree, all elements in the tree must be greater
 ; or equal to this minimum.
 
