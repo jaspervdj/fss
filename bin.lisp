@@ -2,6 +2,11 @@
 ; Queue API
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; Empty queue
+
+(defun queue-empty ()
+    nil)
+
 ; Single-item queue
 
 (defun queue-singleton (k v)
@@ -23,14 +28,14 @@
 
 ; Check if a queue is empty
 
-(defun queue-empty (queue)
+(defun queue-null (queue)
     (endp queue))
 
 ; Count the number of nodes in the queue. Useful as measure, to check that
 ; recursion ends at some point.
 
 (defun queue-size (queue)
-    (if (queue-empty queue)
+    (if (queue-null queue)
         0
         (+
             1
@@ -41,7 +46,7 @@
 
 (defun queue-insert (k v queue)
     (declare (xargs :measure (queue-size queue)))
-    (if (queue-empty queue)
+    (if (queue-null queue)
         (queue-singleton k v)
         (if (< k (queue-key queue))
             (list
@@ -59,7 +64,7 @@
 ; not work for empty queues.
 
 (defun queue-find-min (queue)
-    (if (queue-empty (queue-left queue))
+    (if (queue-null (queue-left queue))
         queue
         (let
             ((left-min (queue-find-min (queue-left queue))))
@@ -70,7 +75,7 @@
 ; Delete the minimum node of the queue.
 
 (defun queue-delete-min (queue)
-    (if (queue-empty (queue-left queue))
+    (if (queue-null (queue-left queue))
         ; No left child, hence this node has the smallest key, and the updated
         ; queue is simply the right child.
         (queue-right queue)
@@ -80,6 +85,20 @@
             (queue-delete-min (queue-left queue))
             (queue-right queue))))
 
+; Add everything from the old queue to the new queue
+
+(defun queue-add-all (old new)
+    (if (queue-null old)
+        new
+        (queue-add-all (queue-left old)
+            (queue-add-all (queue-right old)
+                (queue-insert (queue-key old) (queue-value old) new)))))
+
+; Rebuild an entire queue
+
+(defun queue-rebuild (queue)
+    (queue-add-all queue (queue-empty)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue properties
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -87,7 +106,7 @@
 ; Check that all elements in the queue are less than a given item 'x'
 
 (defun queue-all-lt (x queue)
-    (if (queue-empty queue)
+    (if (queue-null queue)
         t
         (and
             (< (queue-key queue) x)
@@ -97,7 +116,7 @@
 ; Check that all elements in the queue are greater or equal to a given item 'x'
 
 (defun queue-all-get (x queue)
-    (if (queue-empty queue)
+    (if (queue-null queue)
         t
         (and
             (>= (queue-key queue) x)
@@ -108,7 +127,7 @@
 ; operation, only meant for proving stuff.
 
 (defun queue-contains (k v queue)
-    (if (queue-empty queue)
+    (if (queue-null queue)
         nil
         (or
             (and
@@ -120,7 +139,7 @@
 ; A general validity check for the queue...
 
 (defun queue-valid (queue)
-    (if (queue-empty queue)
+    (if (queue-null queue)
         t
         (and
             (integerp (queue-key queue))
@@ -132,6 +151,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue theorems
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; The empty queue is valid
+
+(defthm queue-empty-valid
+    (queue-valid (queue-empty)))
 
 ; A singleton queue with one element is valid (easy)
 
@@ -169,7 +193,7 @@
         (and
             (integerp x)
             (queue-all-lt x queue)
-            (not (queue-empty queue)))
+            (not (queue-null queue)))
         (queue-all-lt x (queue-delete-min queue))))
 
 ; A theorem that insertion preserves validity
@@ -199,7 +223,7 @@
     (implies
         (and
             (queue-valid queue)
-            (not (queue-empty queue))
+            (not (queue-null queue))
             (integerp k))
         (queue-contains 1 2 (queue-insert 1 2 queue))))
 
@@ -208,7 +232,7 @@
 (defthm queue-delete-min-valid
     (implies
         (and
-            (not (queue-empty queue))
+            (not (queue-null queue))
             (queue-valid queue))
         (queue-valid (queue-delete-min queue))))
 
@@ -227,7 +251,7 @@
 (defthm queue-find-min-all-get
     (implies
         (and
-            (not (queue-empty queue))
+            (not (queue-null queue))
             (queue-valid queue))
         (queue-all-get
             (queue-key (queue-find-min queue))
@@ -239,7 +263,7 @@
 ; (defthm queue-delete-min-all-larger
 ;     (implies
 ;         (and
-;             (not (queue-empty queue))
+;             (not (queue-null queue))
 ;             (queue-all-get x queue))
 ;         (queue-all-get x (queue-delete-min queue))))
 
@@ -249,7 +273,7 @@
 (defthm queue-find-min-delete-min
     (implies
         (and
-            (not (queue-empty queue))
+            (not (queue-null queue))
             (queue-valid queue))
         (queue-all-get
             (queue-key (queue-find-min queue))
@@ -260,11 +284,15 @@
 (defthm queue-delete-min-smaller-size
     (implies
         (and
-            (not (queue-empty queue))
+            (not (queue-null queue))
             (queue-valid queue))
         (<
             (queue-size (queue-delete-min queue))
             (queue-size queue))))
+
+; Rebuilding preserves validity.
+
+; TODO: this theorem is not actually necessary, I think.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
