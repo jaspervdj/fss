@@ -85,19 +85,18 @@
             (queue-delete-min (queue-left queue))
             (queue-right queue))))
 
-; Add everything from the old queue to the new queue
+; Change the priority of an item
 
-(defun queue-add-all (old new)
-    (if (queue-null old)
-        new
-        (queue-add-all (queue-left old)
-            (queue-add-all (queue-right old)
-                (queue-insert (queue-key old) (queue-value old) new)))))
+; TODO
 
-; Rebuild an entire queue
+; Merge two queues
 
-(defun queue-rebuild (queue)
-    (queue-add-all queue (queue-empty)))
+(defun queue-merge (q1 q2)
+    (if (queue-null q1)
+        q2
+        (queue-insert (queue-key q1) (queue-value q1)
+            (queue-merge (queue-left q1)
+                (queue-merge (queue-right q1) q2)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue properties
@@ -290,9 +289,14 @@
             (queue-size (queue-delete-min queue))
             (queue-size queue))))
 
-; Rebuilding preserves validity.
+; Merging preserves validity
 
-; TODO: this theorem is not actually necessary, I think.
+(defthm queue-merge-valid
+    (implies
+        (and
+            (queue-valid q1)
+            (queue-valid q2))
+        (queue-valid (queue-merge q1 q2))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
