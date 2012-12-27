@@ -85,10 +85,6 @@
             (queue-delete-min (queue-left queue))
             (queue-right queue))))
 
-; Change the priority of an item
-
-; TODO
-
 ; Merge two queues
 
 (defun queue-merge (q1 q2)
@@ -97,6 +93,20 @@
         (queue-insert (queue-key q1) (queue-value q1)
             (queue-merge (queue-left q1)
                 (queue-merge (queue-right q1) q2)))))
+
+; Change the priority of every item which equals 'v' to 'k'
+
+(defun queue-change-priority (k v queue)
+    (if (queue-null queue)
+        queue
+        (queue-insert
+            (if (equal v (queue-value queue))
+                k
+                (queue-key queue))
+            (queue-value queue)
+            (queue-merge
+                (queue-change-priority k v (queue-left queue))
+                (queue-change-priority k v (queue-right queue))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Queue properties
