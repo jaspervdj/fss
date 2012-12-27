@@ -345,6 +345,18 @@
             (queue-contains k v q1))
         (queue-contains k v (queue-merge q1 q2))))
 
+; Merging should not add items
+
+(defthm queue-merge-not-contains
+    (implies
+        (and
+            (integerp k)
+            (queue-valid q1)
+            (queue-valid q2)
+            (not (queue-contains k v q1))
+            (not (queue-contains k v q2)))
+        (not (queue-contains k v (queue-merge q1 q2)))))
+
 ; Changing the priority of an item preserves validity
 
 (defthm queue-change-priority-valid
@@ -357,7 +369,6 @@
 ; Suppose the queue contains a value 'v' with priority 'k'. If we change the
 ; priority to 'x', the queue should now contain a value 'v' with priority 'x'.
 
-; TODO: additionally, it should NOT contain ('k', 'v')
 (defthm queue-change-priority-contains
     (implies
         (and
@@ -366,6 +377,18 @@
             (queue-valid queue)
             (queue-contains k v queue))
         (queue-contains x v (queue-change-priority x v queue))))
+
+; If we change the priority of 'v' (original priority 'k') to 'x', it should no
+; longer contain a value 'v' with priority 'k'.
+
+(defthm queue-change-priority-not-contains
+    (implies
+        (and
+            (integerp k)
+            (integerp x)
+            (not (= k x))
+            (queue-valid queue))
+        (not (queue-contains k v (queue-change-priority x v queue)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Playing around/tests
