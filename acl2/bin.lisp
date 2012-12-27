@@ -178,6 +178,13 @@
 (defthm queue-singleton-contains
     (queue-contains k v (queue-singleton k v)))
 
+; A singleton queue should not contain any other element
+
+(defthm queue-singleton-not-contains
+    (implies
+        (not (and (= k x) (equal v y)))
+        (not (queue-contains x y (queue-singleton k v)))))
+
 ; Two utility theorems to make `queue-insert-valid` work
 
 (defthm queue-insert-smaller
@@ -193,17 +200,6 @@
             (>= k x)
             (queue-all-get x queue))
         (queue-all-get x (queue-insert k v queue))))
-
-; Another utility: if we delete the minimum from a queue, this does not change
-; the maximum value...
-
-(defthm queue-delete-min-all-smaller
-    (implies
-        (and
-            (integerp x)
-            (queue-all-lt x queue)
-            (not (queue-null queue)))
-        (queue-all-lt x (queue-delete-min queue))))
 
 ; A theorem that insertion preserves validity
 
@@ -234,6 +230,28 @@
             (queue-valid queue)
             (integerp k))
         (queue-contains k v (queue-insert k v queue))))
+
+; If we insert an item, we don't magically add other items which weren't in the
+; queue.
+
+(defthm queue-insert-not-contains
+    (implies
+        (and
+            (not (and (= k x) (equal v y)))
+            (queue-valid queue)
+            (not (queue-contains x y queue)))
+        (not (queue-contains x y (queue-insert k v queue)))))
+
+; Another utility: if we delete the minimum from a queue, this does not change
+; the maximum value...
+
+(defthm queue-delete-min-all-smaller
+    (implies
+        (and
+            (integerp x)
+            (queue-all-lt x queue)
+            (not (queue-null queue)))
+        (queue-all-lt x (queue-delete-min queue))))
 
 ; A theorem that deletion preserves validity
 
