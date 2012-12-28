@@ -59,7 +59,7 @@ Live == WF_vars(Fluitsignaal) /\ WF_vars(Action) /\ WF_vars(Vertrek) /\ WF_vars(
 Spec == Init /\ [][Next]_vars /\ Live
 
 ----
-VertrekNietVoorAc == (ac = 0) ~> (seinlicht = "rood")
+VertrekNaAc == (ac = 1) ~> (seinlicht = "wit")
 
 RoodSeinlichtDefault == []<>(seinlicht = "rood")
 
@@ -72,7 +72,7 @@ OoitVertrek == []<>(vertrek = 1)
 THEOREM Spec => []Types
 THEOREM Spec => RoodSeinlichtDefault
 THEOREM Spec => OoitVertrek
-THEOREM Spec => VertrekNietVoorAc
+THEOREM Spec => VertrekNaAc
 THEOREM Spec => Fairness
 THEOREM Spec => Veiligheid
 ====
