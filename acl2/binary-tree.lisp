@@ -243,26 +243,6 @@
             (not (queue-contains x y queue)))
         (not (queue-contains x y (queue-insert k v queue)))))
 
-; Another utility: if we delete the minimum from a queue, this does not change
-; the maximum value...
-
-(defthm queue-delete-min-all-smaller
-    (implies
-        (and
-            (integerp x)
-            (queue-all-lt x queue)
-            (not (queue-null queue)))
-        (queue-all-lt x (queue-delete-min queue))))
-
-; A theorem that deletion preserves validity
-
-(defthm queue-delete-min-valid
-    (implies
-        (and
-            (not (queue-null queue))
-            (queue-valid queue))
-        (queue-valid (queue-delete-min queue))))
-
 ; Utility: transitivity of queue-all-get
 
 (defthm queue-all-get-transitivity
@@ -283,6 +263,26 @@
         (queue-all-get
             (queue-key (queue-find-min queue))
             queue)))
+
+; Another utility: if we delete the minimum from a queue, this does not change
+; the maximum value...
+
+(defthm queue-delete-min-all-smaller
+    (implies
+        (and
+            (integerp x)
+            (queue-all-lt x queue)
+            (not (queue-null queue)))
+        (queue-all-lt x (queue-delete-min queue))))
+
+; A theorem that deletion preserves validity
+
+(defthm queue-delete-min-valid
+    (implies
+        (and
+            (not (queue-null queue))
+            (queue-valid queue))
+        (queue-valid (queue-delete-min queue))))
 
 ; If we delete the minimum from a tree, all elements in the tree must be greater
 ; or equal to this minimum.
@@ -306,6 +306,21 @@
         (<
             (queue-size (queue-delete-min queue))
             (queue-size queue))))
+
+; Deleting should only remove the minimum element
+
+(defthm queue-delete-min-contains
+    (let
+        ((min-node (queue-find-min queue)))
+        (implies
+            (and
+                (integerp k)
+                (or
+                    (not (= k (queue-key min-node)))
+                    (not (equal v (queue-value min-node))))
+                (queue-valid queue)
+                (queue-contains k v queue))
+            (queue-contains k v (queue-delete-min queue)))))
 
 ; Merging preserves validity
 

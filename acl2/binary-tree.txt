@@ -1,0 +1,4124 @@
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2010
+
+Type :h and hit Enter for context help.
+
+;; Loading file /home/jasper/Package/acl2-sources/.acl2rc ...
+ ACL2 Version 5.0 built November 21, 2012  18:04:56.
+ Copyright (C) 2012  University of Texas at Austin
+ ACL2 comes with ABSOLUTELY NO WARRANTY.  This is free software and you
+ are welcome to redistribute it under certain conditions.  For details,
+ see the GNU General Public License.
+
+ Initialized with (INITIALIZE-ACL2 'INCLUDE-BOOK *ACL2-PASS-2-FILES*).
+ See the documentation topic note-5-0 for recent changes.
+ Note: We have modified the prompt in some underlying Lisps to further
+ distinguish it from the ACL2 prompt.
+
+ACL2 Version 5.0.  Level 1.  Cbd "/home/jasper/Project/fsm/acl2/".
+Distributed books directory "/home/jasper/Package/acl2-sources/books/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>
+ACL2 Version 5.0.  Level 2.  Cbd "/home/jasper/Project/fsm/acl2/".
+Distributed books directory "/home/jasper/Package/acl2-sources/books/".
+Type :help for help.
+Type (good-bye) to quit completely out of ACL2.
+
+ACL2 !>>
+Since QUEUE-EMPTY is non-recursive, its admission is trivial.  We observe
+that the type of QUEUE-EMPTY is described by the theorem 
+(EQUAL (QUEUE-EMPTY) NIL).  
+
+Summary
+Form:  ( DEFUN QUEUE-EMPTY ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-EMPTY
+ACL2 !>>
+Since QUEUE-SINGLETON is non-recursive, its admission is trivial. 
+We observe that the type of QUEUE-SINGLETON is described by the theorem
+(AND (CONSP (QUEUE-SINGLETON K V)) (TRUE-LISTP (QUEUE-SINGLETON K V))).
+We used primitive type reasoning.
+
+Summary
+Form:  ( DEFUN QUEUE-SINGLETON ...)
+Rules: ((:FAKE-RUNE-FOR-TYPE-SET NIL))
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-SINGLETON
+ACL2 !>>
+Since QUEUE-KEY is non-recursive, its admission is trivial.  We could
+deduce no constraints on the type of QUEUE-KEY.
+
+Summary
+Form:  ( DEFUN QUEUE-KEY ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-KEY
+ACL2 !>>
+Since QUEUE-VALUE is non-recursive, its admission is trivial.  We could
+deduce no constraints on the type of QUEUE-VALUE.
+
+Summary
+Form:  ( DEFUN QUEUE-VALUE ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-VALUE
+ACL2 !>>
+Since QUEUE-LEFT is non-recursive, its admission is trivial.  We could
+deduce no constraints on the type of QUEUE-LEFT.
+
+Summary
+Form:  ( DEFUN QUEUE-LEFT ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-LEFT
+ACL2 !>>
+Since QUEUE-RIGHT is non-recursive, its admission is trivial.  We could
+deduce no constraints on the type of QUEUE-RIGHT.
+
+Summary
+Form:  ( DEFUN QUEUE-RIGHT ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-RIGHT
+ACL2 !>>
+Since QUEUE-NULL is non-recursive, its admission is trivial.  We observe
+that the type of QUEUE-NULL is described by the theorem 
+(OR (EQUAL (QUEUE-NULL QUEUE) T) (EQUAL (QUEUE-NULL QUEUE) NIL)). 
+
+Summary
+Form:  ( DEFUN QUEUE-NULL ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-NULL
+ACL2 !>>
+For the admission of QUEUE-SIZE we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (NOT (QUEUE-NULL QUEUE))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (NOT (QUEUE-NULL QUEUE))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2'
+Subgoal 2.4
+Subgoal 2.4'
+Subgoal 2.3
+Subgoal 2.3'
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.3
+Subgoal 1.3'
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-SIZE.  Thus,
+we admit this function under the principle of definition.  We observe
+that the type of QUEUE-SIZE is described by the theorem 
+(AND (INTEGERP (QUEUE-SIZE QUEUE)) (<= 0 (QUEUE-SIZE QUEUE))).  We
+used primitive type reasoning.
+
+Summary
+Form:  ( DEFUN QUEUE-SIZE ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.13 seconds (prove: 0.12, print: 0.00, other: 0.00)
+Prover steps counted:  3798
+ QUEUE-SIZE
+ACL2 !>>
+For the admission of QUEUE-INSERT we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (QUEUE-SIZE QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (O-P (QUEUE-SIZE QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K))
+              (O< (QUEUE-SIZE (QUEUE-RIGHT QUEUE))
+                  (QUEUE-SIZE QUEUE)))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE)))
+              (O< (QUEUE-SIZE (QUEUE-LEFT QUEUE))
+                  (QUEUE-SIZE QUEUE)))).
+Subgoal 3
+Subgoal 2
+Subgoal 2'
+Subgoal 2.4
+Subgoal 2.3
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.3
+Subgoal 1.2
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-INSERT. 
+Thus, we admit this function under the principle of definition.  We
+observe that the type of QUEUE-INSERT is described by the theorem 
+(AND (CONSP (QUEUE-INSERT K V QUEUE)) (TRUE-LISTP (QUEUE-INSERT K V QUEUE))).
+We used primitive type reasoning and the :type-prescription rule 
+QUEUE-SINGLETON.
+
+Summary
+Form:  ( DEFUN QUEUE-INSERT ...)
+Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
+        (:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O-P)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SIZE)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART BINARY-+)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-SIZE)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:REWRITE UNICITY-OF-0)
+        (:TYPE-PRESCRIPTION QUEUE-SINGLETON)
+        (:TYPE-PRESCRIPTION QUEUE-SIZE))
+Time:  0.07 seconds (prove: 0.06, print: 0.01, other: 0.00)
+Prover steps counted:  1924
+ QUEUE-INSERT
+ACL2 !>>
+For the admission of QUEUE-FIND-MIN we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(IMPLIES (NOT (QUEUE-NULL (QUEUE-LEFT QUEUE)))
+         (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+             (ACL2-COUNT QUEUE))).
+Goal'
+Goal''
+Subgoal 4
+Subgoal 3
+Subgoal 2
+Subgoal 1
+Subgoal 1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-FIND-MIN.
+Thus, we admit this function under the principle of definition.  We
+could deduce no constraints on the type of QUEUE-FIND-MIN.
+
+Summary
+Form:  ( DEFUN QUEUE-FIND-MIN ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:ELIM CAR-CDR-ELIM)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.03 seconds (prove: 0.03, print: 0.00, other: 0.00)
+Prover steps counted:  849
+ QUEUE-FIND-MIN
+ACL2 !>>
+For the admission of QUEUE-DELETE-MIN we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(IMPLIES (NOT (QUEUE-NULL (QUEUE-LEFT QUEUE)))
+         (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+             (ACL2-COUNT QUEUE))).
+Goal'
+Goal''
+Subgoal 4
+Subgoal 3
+Subgoal 2
+Subgoal 1
+Subgoal 1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-DELETE-MIN.
+Thus, we admit this function under the principle of definition.  We
+could deduce no constraints on the type of QUEUE-DELETE-MIN.
+
+Summary
+Form:  ( DEFUN QUEUE-DELETE-MIN ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:ELIM CAR-CDR-ELIM)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.03 seconds (prove: 0.03, print: 0.00, other: 0.00)
+Prover steps counted:  849
+ QUEUE-DELETE-MIN
+ACL2 !>>
+For the admission of QUEUE-MERGE we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT Q1).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (NOT (QUEUE-NULL Q1))
+              (O< (ACL2-COUNT (QUEUE-RIGHT Q1))
+                  (ACL2-COUNT Q1)))
+     (IMPLIES (NOT (QUEUE-NULL Q1))
+              (O< (ACL2-COUNT (QUEUE-LEFT Q1))
+                  (ACL2-COUNT Q1)))).
+Subgoal 2
+Subgoal 2'
+Subgoal 2.4
+Subgoal 2.4'
+Subgoal 2.3
+Subgoal 2.3'
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.3
+Subgoal 1.3'
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-MERGE.  Thus,
+we admit this function under the principle of definition.  We observe
+that the type of QUEUE-MERGE is described by the theorem 
+(OR (AND (CONSP (QUEUE-MERGE Q1 Q2))
+         (TRUE-LISTP (QUEUE-MERGE Q1 Q2)))
+    (EQUAL (QUEUE-MERGE Q1 Q2) Q2)).
+We used the :type-prescription rule QUEUE-INSERT.
+
+Summary
+Form:  ( DEFUN QUEUE-MERGE ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT)
+        (:TYPE-PRESCRIPTION QUEUE-INSERT))
+Time:  0.13 seconds (prove: 0.12, print: 0.01, other: 0.00)
+Prover steps counted:  3798
+ QUEUE-MERGE
+ACL2 !>>
+For the admission of QUEUE-CHANGE-PRIORITY we will use the relation
+O< (which is known to be well-founded on the domain recognized by O-P)
+and the measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure
+conjecture is
+
+Goal
+(AND (IMPLIES (NOT (QUEUE-NULL QUEUE))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (NOT (QUEUE-NULL QUEUE))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2'
+Subgoal 2.4
+Subgoal 2.4'
+Subgoal 2.3
+Subgoal 2.3'
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.3
+Subgoal 1.3'
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-CHANGE-PRIORITY.
+Thus, we admit this function under the principle of definition.  We
+observe that the type of QUEUE-CHANGE-PRIORITY is described by the
+theorem 
+(OR (AND (CONSP (QUEUE-CHANGE-PRIORITY K V QUEUE))
+         (TRUE-LISTP (QUEUE-CHANGE-PRIORITY K V QUEUE)))
+    (EQUAL (QUEUE-CHANGE-PRIORITY K V QUEUE)
+           QUEUE)).
+We used the :type-prescription rule QUEUE-INSERT.
+
+Summary
+Form:  ( DEFUN QUEUE-CHANGE-PRIORITY ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT)
+        (:TYPE-PRESCRIPTION QUEUE-INSERT))
+Time:  0.15 seconds (prove: 0.14, print: 0.00, other: 0.00)
+Prover steps counted:  3798
+ QUEUE-CHANGE-PRIORITY
+ACL2 !>>
+For the admission of QUEUE-ALL-LT we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE) X))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE) X)
+                   (QUEUE-ALL-LT X (QUEUE-LEFT QUEUE)))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2'
+Subgoal 2.3
+Subgoal 2.3'
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.4
+Subgoal 1.4'
+Subgoal 1.3
+Subgoal 1.3'
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-ALL-LT. 
+Thus, we admit this function under the principle of definition.  We
+observe that the type of QUEUE-ALL-LT is described by the theorem 
+(OR (EQUAL (QUEUE-ALL-LT X QUEUE) T) (EQUAL (QUEUE-ALL-LT X QUEUE) NIL)).
+
+Summary
+Form:  ( DEFUN QUEUE-ALL-LT ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION NOT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.18 seconds (prove: 0.17, print: 0.01, other: 0.00)
+Prover steps counted:  5021
+ QUEUE-ALL-LT
+ACL2 !>>
+For the admission of QUEUE-ALL-GET we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= X (QUEUE-KEY QUEUE)))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= X (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-GET X (QUEUE-LEFT QUEUE)))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2'
+Subgoal 2.3
+Subgoal 2.3'
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 1
+Subgoal 1'
+Subgoal 1.4
+Subgoal 1.4'
+Subgoal 1.3
+Subgoal 1.3'
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.1
+Subgoal 1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-ALL-GET.
+Thus, we admit this function under the principle of definition.  We
+observe that the type of QUEUE-ALL-GET is described by the theorem
+(OR (EQUAL (QUEUE-ALL-GET X QUEUE) T) (EQUAL (QUEUE-ALL-GET X QUEUE) NIL)).
+
+Summary
+Form:  ( DEFUN QUEUE-ALL-GET ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION NOT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.18 seconds (prove: 0.17, print: 0.01, other: 0.00)
+Prover steps counted:  4859
+ QUEUE-ALL-GET
+ACL2 !>>
+For the admission of QUEUE-CONTAINS we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (NOT (AND (= (QUEUE-KEY QUEUE) K)
+                             (EQUAL (QUEUE-VALUE QUEUE) V))))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (NOT (AND (= (QUEUE-KEY QUEUE) K)
+                             (EQUAL (QUEUE-VALUE QUEUE) V)))
+                   (NOT (QUEUE-CONTAINS K V (QUEUE-LEFT QUEUE))))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2.2
+Subgoal 2.2.3
+Subgoal 2.2.3'
+Subgoal 2.2.2
+Subgoal 2.2.2'
+Subgoal 2.2.1
+Subgoal 2.2.1'
+Subgoal 2.1
+Subgoal 2.1.3
+Subgoal 2.1.3'
+Subgoal 2.1.2
+Subgoal 2.1.2'
+Subgoal 2.1.1
+Subgoal 2.1.1'
+Subgoal 1
+Subgoal 1.2
+Subgoal 1.2.4
+Subgoal 1.2.4'
+Subgoal 1.2.3
+Subgoal 1.2.3'
+Subgoal 1.2.2
+Subgoal 1.2.2'
+Subgoal 1.2.1
+Subgoal 1.2.1'
+Subgoal 1.1
+Subgoal 1.1.4
+Subgoal 1.1.4'
+Subgoal 1.1.3
+Subgoal 1.1.3'
+Subgoal 1.1.2
+Subgoal 1.1.2'
+Subgoal 1.1.1
+Subgoal 1.1.1'
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-CONTAINS.
+Thus, we admit this function under the principle of definition.  We
+observe that the type of QUEUE-CONTAINS is described by the theorem
+(OR (EQUAL (QUEUE-CONTAINS K V QUEUE) T)
+    (EQUAL (QUEUE-CONTAINS K V QUEUE) NIL)).
+We used primitive type reasoning.
+
+Summary
+Form:  ( DEFUN QUEUE-CONTAINS ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION ACL2-COUNT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALUE)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.35 seconds (prove: 0.33, print: 0.02, other: 0.00)
+Prover steps counted:  9320
+ QUEUE-CONTAINS
+ACL2 !>>
+For the admission of QUEUE-VALID we will use the relation O< (which
+is known to be well-founded on the domain recognized by O-P) and the
+measure (ACL2-COUNT QUEUE).  The non-trivial part of the measure conjecture
+is
+
+Goal
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE)))
+              (O< (ACL2-COUNT (QUEUE-LEFT QUEUE))
+                  (ACL2-COUNT QUEUE)))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE)))
+              (O< (ACL2-COUNT (QUEUE-RIGHT QUEUE))
+                  (ACL2-COUNT QUEUE)))).
+Subgoal 2
+Subgoal 2.2
+Subgoal 2.2'
+Subgoal 2.2.4
+Subgoal 2.2.4'
+Subgoal 2.2.3
+Subgoal 2.2.3'
+Subgoal 2.2.2
+Subgoal 2.2.2'
+Subgoal 2.2.1
+Subgoal 2.2.1'
+Subgoal 2.1
+Subgoal 2.1'
+Subgoal 2.1.4
+Subgoal 2.1.4'
+Subgoal 2.1.4''
+Subgoal 2.1.3
+Subgoal 2.1.3'
+Subgoal 2.1.3''
+Subgoal 2.1.2
+Subgoal 2.1.2'
+Subgoal 2.1.2''
+Subgoal 2.1.1
+Subgoal 2.1.1'
+Subgoal 2.1.1''
+Subgoal 1
+Subgoal 1.2
+Subgoal 1.2'
+Subgoal 1.2.4
+Subgoal 1.2.4'
+Subgoal 1.2.3
+Subgoal 1.2.3'
+Subgoal 1.2.2
+Subgoal 1.2.2'
+Subgoal 1.2.1
+Subgoal 1.2.1'
+Subgoal 1.1
+Subgoal 1.1'
+Subgoal 1.1.4
+Subgoal 1.1.4'
+Subgoal 1.1.4''
+Subgoal 1.1.3
+Subgoal 1.1.3'
+Subgoal 1.1.3''
+Subgoal 1.1.2
+Subgoal 1.1.2'
+Subgoal 1.1.2''
+Subgoal 1.1.1
+Subgoal 1.1.1'
+Subgoal 1.1.1''
+
+Q.E.D.
+
+That completes the proof of the measure theorem for QUEUE-VALID.  Thus,
+we admit this function under the principle of definition.  We observe
+that the type of QUEUE-VALID is described by the theorem 
+(OR (EQUAL (QUEUE-VALID QUEUE) T) (EQUAL (QUEUE-VALID QUEUE) NIL)).
+
+Summary
+Form:  ( DEFUN QUEUE-VALID ...)
+Rules: ((:DEFINITION ACL2-COUNT)
+        (:DEFINITION HIDE)
+        (:DEFINITION INTEGER-ABS)
+        (:DEFINITION NOT)
+        (:DEFINITION O-FINP)
+        (:DEFINITION O<)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART ACL2-COUNT)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:TYPE-PRESCRIPTION ACL2-COUNT))
+Time:  0.53 seconds (prove: 0.51, print: 0.02, other: 0.00)
+Prover steps counted:  14441
+ QUEUE-VALID
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-EMPTY-VALID ...):  A :REWRITE
+rule generated from QUEUE-EMPTY-VALID will be triggered only by terms
+containing the non-recursive function symbol QUEUE-EMPTY.  Unless this
+function is disabled, this rule is unlikely ever to be used.
+
+
+Q.E.D.
+
+The storage of QUEUE-EMPTY-VALID depends upon the :type-prescription
+rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-EMPTY-VALID ...)
+Rules: ((:EXECUTABLE-COUNTERPART QUEUE-EMPTY)
+        (:EXECUTABLE-COUNTERPART QUEUE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Warnings:  Non-rec
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+Prover steps counted:  2
+ QUEUE-EMPTY-VALID
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-SINGLETON-VALID ...):  A :REWRITE
+rule generated from QUEUE-SINGLETON-VALID will be triggered only by
+terms containing the non-recursive function symbol QUEUE-SINGLETON.
+Unless this function is disabled, this rule is unlikely ever to be
+used.
+
+Goal'
+
+Q.E.D.
+
+The storage of QUEUE-SINGLETON-VALID depends upon the :type-prescription
+rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-SINGLETON-VALID ...)
+Rules: ((:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALID)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:EXECUTABLE-COUNTERPART QUEUE-VALID)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Warnings:  Non-rec
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+Prover steps counted:  113
+ QUEUE-SINGLETON-VALID
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-SINGLETON-CONTAINS ...): 
+A :REWRITE rule generated from QUEUE-SINGLETON-CONTAINS will be triggered
+only by terms containing the non-recursive function symbol QUEUE-SINGLETON.
+Unless this function is disabled, this rule is unlikely ever to be
+used.
+
+Goal'
+
+Q.E.D.
+
+The storage of QUEUE-SINGLETON-CONTAINS depends upon the :type-prescription
+rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-SINGLETON-CONTAINS ...)
+Rules: ((:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Warnings:  Non-rec
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+Prover steps counted:  53
+ QUEUE-SINGLETON-CONTAINS
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-SINGLETON-NOT-CONTAINS ...):
+A :REWRITE rule generated from QUEUE-SINGLETON-NOT-CONTAINS will be
+triggered only by terms containing the non-recursive function symbol
+QUEUE-SINGLETON.  Unless this function is disabled, this rule is unlikely
+ever to be used.
+
+Goal'
+
+Q.E.D.
+
+Summary
+Form:  ( DEFTHM QUEUE-SINGLETON-NOT-CONTAINS ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Warnings:  Non-rec
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
+Prover steps counted:  245
+ QUEUE-SINGLETON-NOT-CONTAINS
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-INSERT K V QUEUE),
+but modified to accommodate (QUEUE-ALL-LT X QUEUE).  These suggestions
+were produced using the :induction rules QUEUE-ALL-LT and QUEUE-INSERT.
+If we let (:P K QUEUE V X) denote *1 above then the induction scheme
+we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K)
+                   (:P K (QUEUE-RIGHT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-INSERT-SMALLER depends upon the :type-prescription
+rule QUEUE-ALL-LT.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-SMALLER ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-ALL-LT)
+        (:INDUCTION QUEUE-INSERT)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT))
+Time:  0.10 seconds (prove: 0.09, print: 0.01, other: 0.00)
+Prover steps counted:  3861
+ QUEUE-INSERT-SMALLER
+ACL2 !>>Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (<= X K) (QUEUE-ALL-GET X QUEUE))
+         (QUEUE-ALL-GET X (QUEUE-INSERT K V QUEUE)))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-INSERT K V QUEUE),
+but modified to accommodate (QUEUE-ALL-GET X QUEUE).  These suggestions
+were produced using the :induction rules QUEUE-ALL-GET and QUEUE-INSERT.
+If we let (:P K QUEUE V X) denote *1 above then the induction scheme
+we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K)
+                   (:P K (QUEUE-RIGHT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-INSERT-LARGER depends upon the :type-prescription
+rule QUEUE-ALL-GET.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-LARGER ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-ALL-GET)
+        (:INDUCTION QUEUE-INSERT)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET))
+Time:  0.09 seconds (prove: 0.09, print: 0.00, other: 0.00)
+Prover steps counted:  3664
+ QUEUE-INSERT-LARGER
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-INSERT K V QUEUE).
+This suggestion was produced using the :induction rules QUEUE-INSERT
+and QUEUE-VALID.  If we let (:P K QUEUE V) denote *1 above then the
+induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K)
+                   (:P K (QUEUE-RIGHT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.3
+Subgoal *1/5.3'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.3
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.3
+Subgoal *1/3.3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.3
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-INSERT-VALID depends upon the :type-prescription
+rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-VALID ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:EXECUTABLE-COUNTERPART QUEUE-VALID)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-INSERT)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE QUEUE-INSERT-LARGER)
+        (:REWRITE QUEUE-INSERT-SMALLER)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.33 seconds (prove: 0.32, print: 0.01, other: 0.00)
+Prover steps counted:  10600
+ QUEUE-INSERT-VALID
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  These merge into one derived induction
+scheme.  
+
+We will induct according to a scheme suggested by (QUEUE-INSERT X Y QUEUE),
+but modified to accommodate (QUEUE-CONTAINS K V QUEUE).  These suggestions
+were produced using the :induction rules QUEUE-CONTAINS, QUEUE-INSERT
+and QUEUE-VALID.  If we let (:P K QUEUE V X Y) denote *1 above then
+the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) X)
+                   (:P K (QUEUE-RIGHT QUEUE) V X Y))
+              (:P K QUEUE V X Y))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< X (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X Y))
+              (:P K QUEUE V X Y))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X Y))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+seven nontautological subgoals.
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.6
+Subgoal *1/7.5
+Subgoal *1/7.4
+Subgoal *1/7.3
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.1
+Subgoal *1/7.1'
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6.6
+Subgoal *1/6.5
+Subgoal *1/6.4
+Subgoal *1/6.3
+Subgoal *1/6.2
+Subgoal *1/6.2'
+Subgoal *1/6.1
+Subgoal *1/6.1'
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.6
+Subgoal *1/5.5
+Subgoal *1/5.4
+Subgoal *1/5.3
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.6
+Subgoal *1/4.5
+Subgoal *1/4.4
+Subgoal *1/4.3
+Subgoal *1/4.2
+Subgoal *1/4.2'
+Subgoal *1/4.1
+Subgoal *1/4.1'
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.6
+Subgoal *1/3.5
+Subgoal *1/3.4
+Subgoal *1/3.3
+Subgoal *1/3.2
+Subgoal *1/3.2'
+Subgoal *1/3.1
+Subgoal *1/3.1'
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.6
+Subgoal *1/2.5
+Subgoal *1/2.4
+Subgoal *1/2.3
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-INSERT-ALREADY-CONTAINS depends upon the :type-
+prescription rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-ALREADY-CONTAINS ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-INSERT)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Time:  0.69 seconds (prove: 0.67, print: 0.02, other: 0.00)
+Prover steps counted:  25706
+ QUEUE-INSERT-ALREADY-CONTAINS
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-INSERT K V QUEUE).
+This suggestion was produced using the :induction rules QUEUE-INSERT
+and QUEUE-VALID.  If we let (:P K QUEUE V) denote *1 above then the
+induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K)
+                   (:P K (QUEUE-RIGHT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-INSERT-CONTAINS depends upon the :type-prescription
+rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-CONTAINS ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-INSERT)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Time:  0.23 seconds (prove: 0.23, print: 0.00, other: 0.00)
+Prover steps counted:  8033
+ QUEUE-INSERT-CONTAINS
+ACL2 !>>Goal'
+Subgoal 2
+
+([ A key checkpoint:
+
+Subgoal 2
+(IMPLIES (AND (NOT (EQUAL K X))
+              (QUEUE-VALID QUEUE)
+              (NOT (QUEUE-CONTAINS X Y QUEUE)))
+         (NOT (QUEUE-CONTAINS X Y (QUEUE-INSERT K V QUEUE))))
+
+*1 (Subgoal 2) is pushed for proof by induction.
+
+])
+Subgoal 1
+
+([ A key checkpoint:
+
+Subgoal 1
+(IMPLIES (AND (NOT (EQUAL V Y))
+              (QUEUE-VALID QUEUE)
+              (NOT (QUEUE-CONTAINS X Y QUEUE)))
+         (NOT (QUEUE-CONTAINS X Y (QUEUE-INSERT K V QUEUE))))
+
+Normally we would attempt to prove Subgoal 1 by induction.  However,
+we prefer in this instance to focus on the original input conjecture
+rather than this simplified special case.  We therefore abandon our
+previous work on this conjecture and reassign the name *1 to the original
+conjecture.  (See :DOC otf-flg.)
+
+])
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  These merge into one derived induction
+scheme.  
+
+We will induct according to a scheme suggested by (QUEUE-INSERT K V QUEUE),
+but modified to accommodate (QUEUE-CONTAINS X Y QUEUE).  These suggestions
+were produced using the :induction rules QUEUE-CONTAINS, QUEUE-INSERT
+and QUEUE-VALID.  If we let (:P K QUEUE V X Y) denote *1 above then
+the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (QUEUE-KEY QUEUE) K)
+                   (:P K (QUEUE-RIGHT QUEUE) V X Y))
+              (:P K QUEUE V X Y))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< K (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X Y))
+              (:P K QUEUE V X Y))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X Y))).
+This induction is justified by the same argument used to admit QUEUE-INSERT.
+When applied to the goal at hand the above induction scheme produces
+three nontautological subgoals.
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.24
+Subgoal *1/3.23
+Subgoal *1/3.22
+Subgoal *1/3.21
+Subgoal *1/3.20
+Subgoal *1/3.19
+Subgoal *1/3.18
+Subgoal *1/3.17
+Subgoal *1/3.16
+Subgoal *1/3.15
+Subgoal *1/3.14
+Subgoal *1/3.13
+Subgoal *1/3.12
+Subgoal *1/3.11
+Subgoal *1/3.10
+Subgoal *1/3.9
+Subgoal *1/3.8
+Subgoal *1/3.7
+Subgoal *1/3.6
+Subgoal *1/3.5
+Subgoal *1/3.4
+Subgoal *1/3.3
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.24
+Subgoal *1/2.23
+Subgoal *1/2.22
+Subgoal *1/2.21
+Subgoal *1/2.20
+Subgoal *1/2.19
+Subgoal *1/2.18
+Subgoal *1/2.17
+Subgoal *1/2.16
+Subgoal *1/2.15
+Subgoal *1/2.14
+Subgoal *1/2.13
+Subgoal *1/2.12
+Subgoal *1/2.11
+Subgoal *1/2.10
+Subgoal *1/2.9
+Subgoal *1/2.8
+Subgoal *1/2.7
+Subgoal *1/2.6
+Subgoal *1/2.5
+Subgoal *1/2.4
+Subgoal *1/2.3
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+Summary
+Form:  ( DEFTHM QUEUE-INSERT-NOT-CONTAINS ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-INSERT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SINGLETON)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-INSERT)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Time:  0.64 seconds (prove: 0.63, print: 0.01, other: 0.00)
+Prover steps counted:  26386
+ QUEUE-INSERT-NOT-CONTAINS
+ACL2 !>>
+ACL2 Warning [Free] in ( DEFTHM QUEUE-ALL-GET-TRANSITIVITY ...):  A
+:REWRITE rule generated from QUEUE-ALL-GET-TRANSITIVITY contains the
+free variable X.  This variable will be chosen by searching for an
+instance of (<= Y X) in the context of the term being rewritten.  This
+is generally a severe restriction on the applicability of a :REWRITE
+rule.  See :DOC free-variables.
+
+
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-ALL-GET Y QUEUE),
+but modified to accommodate (QUEUE-ALL-GET X QUEUE).  These suggestions
+were produced using the :induction rule QUEUE-ALL-GET.  If we let 
+(:P QUEUE X Y) denote *1 above then the induction scheme we'll use
+is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE) Y))
+              (:P QUEUE X Y))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= Y (QUEUE-KEY QUEUE))
+                   (NOT (QUEUE-ALL-GET Y (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE) X Y))
+              (:P QUEUE X Y))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= Y (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-GET Y (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE) X Y)
+                   (:P (QUEUE-RIGHT QUEUE) X Y))
+              (:P QUEUE X Y))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE X Y))).
+This induction is justified by the same argument used to admit QUEUE-ALL-GET.
+When applied to the goal at hand the above induction scheme produces
+five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-ALL-GET-TRANSITIVITY depends upon the :type-prescription
+rule QUEUE-ALL-GET.
+
+Summary
+Form:  ( DEFTHM QUEUE-ALL-GET-TRANSITIVITY ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:INDUCTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET))
+Warnings:  Free
+Time:  0.06 seconds (prove: 0.05, print: 0.01, other: 0.00)
+Prover steps counted:  2274
+ QUEUE-ALL-GET-TRANSITIVITY
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-FIND-MIN-ALL-GET ...):  A
+:REWRITE rule generated from QUEUE-FIND-MIN-ALL-GET will be triggered
+only by terms containing the non-recursive function symbol QUEUE-KEY.
+Unless this function is disabled, this rule is unlikely ever to be
+used.
+
+Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (CONSP QUEUE) (QUEUE-VALID QUEUE))
+         (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE))
+                        QUEUE))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  These merge into one derived induction
+scheme.  
+
+We will induct according to a scheme suggested by 
+(QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE)) QUEUE).  This suggestion
+was produced using the :induction rules QUEUE-ALL-GET, QUEUE-FIND-MIN
+and QUEUE-VALID.  If we let (:P QUEUE) denote *1 above then the induction
+scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE)
+                      (CAR (QUEUE-FIND-MIN QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (CAR (QUEUE-FIND-MIN QUEUE))
+                       (QUEUE-KEY QUEUE))
+                   (NOT (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE))
+                                       (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= (CAR (QUEUE-FIND-MIN QUEUE))
+                       (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE))
+                                  (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-RIGHT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE))).
+This induction is justified by the same argument used to admit QUEUE-ALL-GET.
+When applied to the goal at hand the above induction scheme produces
+14 nontautological subgoals.
+Subgoal *1/14
+Subgoal *1/14'
+Subgoal *1/14''
+Subgoal *1/14'''
+Subgoal *1/13
+Subgoal *1/13'
+Subgoal *1/13.4
+Subgoal *1/13.4'
+Subgoal *1/13.3
+Subgoal *1/13.2
+Subgoal *1/13.2'
+
+Forcing Round 1 is pending (caused first by Subgoal *1/13.2').
+Subgoal *1/13.2''
+Subgoal *1/13.1
+Subgoal *1/13.1'
+Subgoal *1/12
+Subgoal *1/12'
+Subgoal *1/12.3
+Subgoal *1/12.2
+Subgoal *1/12.1
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/10.4
+Subgoal *1/10.4'
+Subgoal *1/10.3
+Subgoal *1/10.3'
+Subgoal *1/10.2
+Subgoal *1/10.2'
+Subgoal *1/10.1
+Subgoal *1/10.1'
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/9.2
+Subgoal *1/9.1
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.4
+Subgoal *1/7.3
+Subgoal *1/7.2
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6.2
+Subgoal *1/6.1
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.4
+Subgoal *1/4.4'
+Subgoal *1/4.3
+Subgoal *1/4.3'
+Subgoal *1/4.2
+Subgoal *1/4.2'
+Subgoal *1/4.1
+Subgoal *1/4.1'
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/1
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+q.e.d. (given one forced hypothesis)
+
+Modulo one forced goal, that completes the proof of the input Goal.
+See :DOC forcing-round.
+
+[1]Goal was forced in Subgoal *1/13.2' by linearization.
+
+We now undertake Forcing Round 1.
+[1]Goal
+[1]Goal'
+[1]Goal''
+[1]Subgoal 4
+[1]Subgoal 3
+[1]Subgoal 2
+[1]Subgoal 2'
+
+([ A key checkpoint:
+
+[1]Goal''
+(IMPLIES (AND (EQUAL 0 (CAR QUEUE))
+              (CONSP QUEUE)
+              (NOT (QUEUE-ALL-GET 0 (CADDR QUEUE)))
+              (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                             (CADDR QUEUE))
+              (QUEUE-ALL-LT 0 (CADDR QUEUE))
+              (QUEUE-ALL-GET 0 (CADDDR QUEUE))
+              (QUEUE-VALID (CADDR QUEUE))
+              (QUEUE-VALID (CADDDR QUEUE)))
+         (ACL2-NUMBERP (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))))
+
+[1]*1 ([1]Subgoal 2') is pushed for proof by induction:
+(IMPLIES (AND (NOT (CONSP QUEUE6))
+              (NOT (QUEUE-ALL-GET 0 QUEUE5))
+              (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE5))
+                             QUEUE5)
+              (QUEUE-ALL-LT 0 QUEUE5)
+              (QUEUE-VALID QUEUE5))
+         (ACL2-NUMBERP (CAR (QUEUE-FIND-MIN QUEUE5)))).
+[1]Subgoal 1
+[1]Subgoal 1'
+
+[1]*2 ([1]Subgoal 1') is pushed for proof by induction:
+(IMPLIES (AND (NOT (QUEUE-ALL-GET 0 QUEUE5))
+              (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE5))
+                             QUEUE5)
+              (QUEUE-ALL-LT 0 QUEUE5)
+              (QUEUE-ALL-GET 0 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7))
+         (ACL2-NUMBERP (CAR (QUEUE-FIND-MIN QUEUE5)))).
+
+])
+
+Perhaps we can prove [1]*2 by induction.  Eight induction schemes are
+suggested by this conjecture.  Subsumption reduces that number to seven.
+These merge into two derived induction schemes.  One of these has a
+score higher than the other.  
+
+We will induct according to a scheme suggested by (QUEUE-VALID QUEUE5).
+This suggestion was produced using the :induction rules QUEUE-ALL-GET,
+QUEUE-ALL-LT, QUEUE-FIND-MIN and QUEUE-VALID.  If we let (:P QUEUE5 QUEUE7)
+denote [1]*2 above then the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (NOT (INTEGERP (QUEUE-KEY QUEUE5))))
+              (:P QUEUE5 QUEUE7))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (NOT (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                      (QUEUE-LEFT QUEUE5))))
+              (:P QUEUE5 QUEUE7))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (NOT (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                       (QUEUE-RIGHT QUEUE5))))
+              (:P QUEUE5 QUEUE7))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                  (QUEUE-RIGHT QUEUE5))
+                   (NOT (QUEUE-VALID (QUEUE-LEFT QUEUE5)))
+                   (:P (QUEUE-LEFT QUEUE5) QUEUE7))
+              (:P QUEUE5 QUEUE7))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                  (QUEUE-RIGHT QUEUE5))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE5))
+                   (:P (QUEUE-LEFT QUEUE5) QUEUE7)
+                   (:P (QUEUE-RIGHT QUEUE5) QUEUE7))
+              (:P QUEUE5 QUEUE7))
+     (IMPLIES (QUEUE-NULL QUEUE5)
+              (:P QUEUE5 QUEUE7))).
+This induction is justified by the same argument used to admit QUEUE-VALID.
+When applied to the goal at hand the above induction scheme produces
+25 nontautological subgoals.
+[1]Subgoal *2/25
+[1]Subgoal *2/25'
+[1]Subgoal *2/24
+[1]Subgoal *2/24'
+[1]Subgoal *2/23
+[1]Subgoal *2/23'
+[1]Subgoal *2/22
+[1]Subgoal *2/22'
+[1]Subgoal *2/22.2
+[1]Subgoal *2/22.1
+[1]Subgoal *2/21
+[1]Subgoal *2/21'
+[1]Subgoal *2/21.2
+[1]Subgoal *2/21.1
+[1]Subgoal *2/20
+[1]Subgoal *2/20'
+[1]Subgoal *2/20.2
+[1]Subgoal *2/20.1
+[1]Subgoal *2/19
+[1]Subgoal *2/19'
+[1]Subgoal *2/19.2
+[1]Subgoal *2/19.2'
+[1]Subgoal *2/19.1
+[1]Subgoal *2/19.1'
+[1]Subgoal *2/18
+[1]Subgoal *2/18'
+[1]Subgoal *2/18.2
+[1]Subgoal *2/18.2'
+[1]Subgoal *2/18.1
+[1]Subgoal *2/17
+[1]Subgoal *2/17'
+[1]Subgoal *2/17.2
+[1]Subgoal *2/17.1
+[1]Subgoal *2/16
+[1]Subgoal *2/16'
+[1]Subgoal *2/16.2
+[1]Subgoal *2/16.1
+[1]Subgoal *2/15
+[1]Subgoal *2/15'
+[1]Subgoal *2/15.2
+[1]Subgoal *2/15.1
+[1]Subgoal *2/14
+[1]Subgoal *2/14'
+[1]Subgoal *2/14.2
+[1]Subgoal *2/14.1
+[1]Subgoal *2/13
+[1]Subgoal *2/13'
+[1]Subgoal *2/13.2
+[1]Subgoal *2/13.1
+[1]Subgoal *2/12
+[1]Subgoal *2/12'
+[1]Subgoal *2/12.2
+[1]Subgoal *2/12.1
+[1]Subgoal *2/11
+[1]Subgoal *2/11'
+[1]Subgoal *2/11.2
+[1]Subgoal *2/11.1
+[1]Subgoal *2/10
+[1]Subgoal *2/10'
+[1]Subgoal *2/10.2
+[1]Subgoal *2/10.1
+[1]Subgoal *2/9
+[1]Subgoal *2/9'
+[1]Subgoal *2/9.2
+[1]Subgoal *2/9.1
+[1]Subgoal *2/8
+[1]Subgoal *2/8'
+[1]Subgoal *2/8.2
+[1]Subgoal *2/8.1
+[1]Subgoal *2/7
+[1]Subgoal *2/7'
+[1]Subgoal *2/7.2
+[1]Subgoal *2/7.2'
+[1]Subgoal *2/7.1
+[1]Subgoal *2/7.1'
+[1]Subgoal *2/6
+[1]Subgoal *2/6'
+[1]Subgoal *2/6.2
+[1]Subgoal *2/6.2'
+[1]Subgoal *2/6.1
+[1]Subgoal *2/5
+[1]Subgoal *2/5'
+[1]Subgoal *2/5.2
+[1]Subgoal *2/5.1
+[1]Subgoal *2/4
+[1]Subgoal *2/4'
+[1]Subgoal *2/4.2
+[1]Subgoal *2/4.1
+[1]Subgoal *2/3
+[1]Subgoal *2/3'
+[1]Subgoal *2/3.2
+[1]Subgoal *2/3.1
+[1]Subgoal *2/3.1'
+[1]Subgoal *2/2
+[1]Subgoal *2/2'
+[1]Subgoal *2/2.2
+[1]Subgoal *2/2.1
+[1]Subgoal *2/1
+[1]Subgoal *2/1'
+
+[1]*2 is COMPLETED!
+
+Perhaps we can prove [1]*1 by induction.  Six induction schemes are
+suggested by this conjecture.  Subsumption reduces that number to five.
+These merge into one derived induction scheme.  
+
+We will induct according to a scheme suggested by (QUEUE-VALID QUEUE5).
+This suggestion was produced using the :induction rules QUEUE-ALL-GET,
+QUEUE-ALL-LT, QUEUE-FIND-MIN and QUEUE-VALID.  If we let (:P QUEUE5 QUEUE6)
+denote [1]*1 above then the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (NOT (INTEGERP (QUEUE-KEY QUEUE5))))
+              (:P QUEUE5 QUEUE6))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (NOT (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                      (QUEUE-LEFT QUEUE5))))
+              (:P QUEUE5 QUEUE6))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (NOT (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                       (QUEUE-RIGHT QUEUE5))))
+              (:P QUEUE5 QUEUE6))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                  (QUEUE-RIGHT QUEUE5))
+                   (NOT (QUEUE-VALID (QUEUE-LEFT QUEUE5)))
+                   (:P (QUEUE-LEFT QUEUE5) QUEUE6))
+              (:P QUEUE5 QUEUE6))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE5))
+                   (INTEGERP (QUEUE-KEY QUEUE5))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE5)
+                                 (QUEUE-LEFT QUEUE5))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE5)
+                                  (QUEUE-RIGHT QUEUE5))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE5))
+                   (:P (QUEUE-LEFT QUEUE5) QUEUE6)
+                   (:P (QUEUE-RIGHT QUEUE5) QUEUE6))
+              (:P QUEUE5 QUEUE6))
+     (IMPLIES (QUEUE-NULL QUEUE5)
+              (:P QUEUE5 QUEUE6))).
+This induction is justified by the same argument used to admit QUEUE-VALID.
+When applied to the goal at hand the above induction scheme produces
+25 nontautological subgoals.
+[1]Subgoal *1/25
+[1]Subgoal *1/25'
+[1]Subgoal *1/24
+[1]Subgoal *1/24'
+[1]Subgoal *1/23
+[1]Subgoal *1/23'
+[1]Subgoal *1/22
+[1]Subgoal *1/22'
+[1]Subgoal *1/22.2
+[1]Subgoal *1/22.1
+[1]Subgoal *1/21
+[1]Subgoal *1/21'
+[1]Subgoal *1/21.2
+[1]Subgoal *1/21.1
+[1]Subgoal *1/20
+[1]Subgoal *1/20'
+[1]Subgoal *1/20.2
+[1]Subgoal *1/20.1
+[1]Subgoal *1/19
+[1]Subgoal *1/19'
+[1]Subgoal *1/19.2
+[1]Subgoal *1/19.2'
+[1]Subgoal *1/19.1
+[1]Subgoal *1/19.1'
+[1]Subgoal *1/18
+[1]Subgoal *1/18'
+[1]Subgoal *1/18.2
+[1]Subgoal *1/18.2'
+[1]Subgoal *1/18.1
+[1]Subgoal *1/17
+[1]Subgoal *1/17'
+[1]Subgoal *1/17.2
+[1]Subgoal *1/17.1
+[1]Subgoal *1/16
+[1]Subgoal *1/16'
+[1]Subgoal *1/16.2
+[1]Subgoal *1/16.1
+[1]Subgoal *1/15
+[1]Subgoal *1/15'
+[1]Subgoal *1/15.2
+[1]Subgoal *1/15.1
+[1]Subgoal *1/14
+[1]Subgoal *1/14'
+[1]Subgoal *1/14.2
+[1]Subgoal *1/14.1
+[1]Subgoal *1/13
+[1]Subgoal *1/13'
+[1]Subgoal *1/13.2
+[1]Subgoal *1/13.1
+[1]Subgoal *1/12
+[1]Subgoal *1/12'
+[1]Subgoal *1/12.2
+[1]Subgoal *1/12.1
+[1]Subgoal *1/11
+[1]Subgoal *1/11'
+[1]Subgoal *1/11.2
+[1]Subgoal *1/11.1
+[1]Subgoal *1/10
+[1]Subgoal *1/10'
+[1]Subgoal *1/10.2
+[1]Subgoal *1/10.1
+[1]Subgoal *1/9
+[1]Subgoal *1/9'
+[1]Subgoal *1/9.2
+[1]Subgoal *1/9.1
+[1]Subgoal *1/8
+[1]Subgoal *1/8'
+[1]Subgoal *1/8.2
+[1]Subgoal *1/8.1
+[1]Subgoal *1/7
+[1]Subgoal *1/7'
+[1]Subgoal *1/7.2
+[1]Subgoal *1/7.2'
+[1]Subgoal *1/7.1
+[1]Subgoal *1/7.1'
+[1]Subgoal *1/6
+[1]Subgoal *1/6'
+[1]Subgoal *1/6.2
+[1]Subgoal *1/6.2'
+[1]Subgoal *1/6.1
+[1]Subgoal *1/5
+[1]Subgoal *1/5'
+[1]Subgoal *1/5.2
+[1]Subgoal *1/5.1
+[1]Subgoal *1/4
+[1]Subgoal *1/4'
+[1]Subgoal *1/4.2
+[1]Subgoal *1/4.1
+[1]Subgoal *1/3
+[1]Subgoal *1/3'
+[1]Subgoal *1/3.2
+[1]Subgoal *1/3.1
+[1]Subgoal *1/3.1'
+[1]Subgoal *1/2
+[1]Subgoal *1/2'
+[1]Subgoal *1/2.2
+[1]Subgoal *1/2.1
+[1]Subgoal *1/1
+[1]Subgoal *1/1'
+
+[1]*1 is COMPLETED!
+Thus key checkpoint [1]Goal'' is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-FIND-MIN-ALL-GET depends upon the :type-prescription
+rule QUEUE-ALL-GET.
+
+Summary
+Form:  ( DEFTHM QUEUE-FIND-MIN-ALL-GET ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-FIND-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART <)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART INTEGERP)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART QUEUE-ALL-GET)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:EXECUTABLE-COUNTERPART QUEUE-VALID)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-ALL-GET)
+        (:INDUCTION QUEUE-ALL-LT)
+        (:INDUCTION QUEUE-FIND-MIN)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE DEFAULT-<-1)
+        (:REWRITE DEFAULT-<-2)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:REWRITE QUEUE-ALL-GET-TRANSITIVITY)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Warnings:  Non-rec
+Time:  12.72 seconds (prove: 12.65, print: 0.07, other: 0.00)
+Prover steps counted:  344001
+ QUEUE-FIND-MIN-ALL-GET
+ACL2 !>>Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (INTEGERP X)
+              (QUEUE-ALL-LT X QUEUE)
+              (CONSP QUEUE))
+         (QUEUE-ALL-LT X (QUEUE-DELETE-MIN QUEUE)))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-ALL-LT X QUEUE).
+This suggestion was produced using the :induction rules QUEUE-ALL-LT
+and QUEUE-DELETE-MIN.  If we let (:P QUEUE X) denote *1 above then
+the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (<= X (QUEUE-KEY QUEUE)))
+              (:P QUEUE X))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE) X)
+                   (NOT (QUEUE-ALL-LT X (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE) X))
+              (:P QUEUE X))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (< (QUEUE-KEY QUEUE) X)
+                   (QUEUE-ALL-LT X (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE) X)
+                   (:P (QUEUE-RIGHT QUEUE) X))
+              (:P QUEUE X))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE X))).
+This induction is justified by the same argument used to admit QUEUE-ALL-LT.
+When applied to the goal at hand the above induction scheme produces
+nine nontautological subgoals.
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6''
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.2'
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2''
+Subgoal *1/1
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-DELETE-MIN-ALL-SMALLER depends upon the :type-
+prescription rule QUEUE-ALL-LT.
+
+Summary
+Form:  ( DEFTHM QUEUE-DELETE-MIN-ALL-SMALLER ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-DELETE-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-ALL-LT)
+        (:INDUCTION QUEUE-DELETE-MIN)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT))
+Time:  0.19 seconds (prove: 0.18, print: 0.01, other: 0.00)
+Prover steps counted:  6865
+ QUEUE-DELETE-MIN-ALL-SMALLER
+ACL2 !>>Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (CONSP QUEUE) (QUEUE-VALID QUEUE))
+         (QUEUE-VALID (QUEUE-DELETE-MIN QUEUE)))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by (QUEUE-VALID QUEUE).
+This suggestion was produced using the :induction rules QUEUE-DELETE-MIN
+and QUEUE-VALID.  If we let (:P QUEUE) denote *1 above then the induction
+scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (NOT (INTEGERP (QUEUE-KEY QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (NOT (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                      (QUEUE-LEFT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (NOT (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                       (QUEUE-RIGHT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (NOT (QUEUE-VALID (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-RIGHT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE))).
+This induction is justified by the same argument used to admit QUEUE-VALID.
+When applied to the goal at hand the above induction scheme produces
+eleven nontautological subgoals.
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6''
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4''
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.2'
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/1
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-DELETE-MIN-VALID depends upon the :type-prescription
+rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-DELETE-MIN-VALID ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-DELETE-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-DELETE-MIN)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE QUEUE-DELETE-MIN-ALL-SMALLER)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.44 seconds (prove: 0.43, print: 0.01, other: 0.00)
+Prover steps counted:  13751
+ QUEUE-DELETE-MIN-VALID
+ACL2 !>>
+ACL2 Warning [Non-rec] in ( DEFTHM QUEUE-FIND-MIN-DELETE-MIN ...):
+A :REWRITE rule generated from QUEUE-FIND-MIN-DELETE-MIN will be triggered
+only by terms containing the non-recursive function symbol QUEUE-KEY.
+Unless this function is disabled, this rule is unlikely ever to be
+used.
+
+Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (CONSP QUEUE) (QUEUE-VALID QUEUE))
+         (QUEUE-ALL-GET (CAR (QUEUE-FIND-MIN QUEUE))
+                        (QUEUE-DELETE-MIN QUEUE)))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  Subsumption reduces that number to two.
+These merge into one derived induction scheme.  
+
+We will induct according to a scheme suggested by (QUEUE-VALID QUEUE).
+This suggestion was produced using the :induction rules QUEUE-DELETE-MIN,
+QUEUE-FIND-MIN and QUEUE-VALID.  If we let (:P QUEUE) denote *1 above
+then the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (NOT (INTEGERP (QUEUE-KEY QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (NOT (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                      (QUEUE-LEFT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (NOT (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                       (QUEUE-RIGHT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (NOT (QUEUE-VALID (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-RIGHT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE))).
+This induction is justified by the same argument used to admit QUEUE-VALID.
+When applied to the goal at hand the above induction scheme produces
+eleven nontautological subgoals.
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.2''
+Subgoal *1/7.1
+Subgoal *1/7.1'
+Subgoal *1/7.1''
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.3
+Subgoal *1/3.3'
+Subgoal *1/3.2
+Subgoal *1/3.2'
+Subgoal *1/3.2''
+Subgoal *1/3.1
+Subgoal *1/3.1'
+Subgoal *1/3.1''
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/1
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-FIND-MIN-DELETE-MIN depends upon the :type-prescription
+rule QUEUE-ALL-GET.
+
+Summary
+Form:  ( DEFTHM QUEUE-FIND-MIN-DELETE-MIN ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-DELETE-MIN)
+        (:DEFINITION QUEUE-FIND-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART CAR)
+        (:EXECUTABLE-COUNTERPART CDR)
+        (:EXECUTABLE-COUNTERPART QUEUE-ALL-GET)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-DELETE-MIN)
+        (:INDUCTION QUEUE-FIND-MIN)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE DEFAULT-CDR)
+        (:REWRITE QUEUE-ALL-GET-TRANSITIVITY)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT))
+Warnings:  Non-rec
+Time:  0.54 seconds (prove: 0.52, print: 0.02, other: 0.00)
+Prover steps counted:  17388
+ QUEUE-FIND-MIN-DELETE-MIN
+ACL2 !>>Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (CONSP QUEUE) (QUEUE-VALID QUEUE))
+         (< (QUEUE-SIZE (QUEUE-DELETE-MIN QUEUE))
+            (QUEUE-SIZE QUEUE)))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  Subsumption reduces that number to two.
+These merge into one derived induction scheme.  
+
+We will induct according to a scheme suggested by (QUEUE-VALID QUEUE).
+This suggestion was produced using the :induction rules QUEUE-DELETE-MIN,
+QUEUE-SIZE and QUEUE-VALID.  If we let (:P QUEUE) denote *1 above then
+the induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (NOT (INTEGERP (QUEUE-KEY QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (NOT (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                      (QUEUE-LEFT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (NOT (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                       (QUEUE-RIGHT QUEUE))))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (NOT (QUEUE-VALID (QUEUE-LEFT QUEUE)))
+                   (:P (QUEUE-LEFT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (INTEGERP (QUEUE-KEY QUEUE))
+                   (QUEUE-ALL-LT (QUEUE-KEY QUEUE)
+                                 (QUEUE-LEFT QUEUE))
+                   (QUEUE-ALL-GET (QUEUE-KEY QUEUE)
+                                  (QUEUE-RIGHT QUEUE))
+                   (QUEUE-VALID (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-LEFT QUEUE))
+                   (:P (QUEUE-RIGHT QUEUE)))
+              (:P QUEUE))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P QUEUE))).
+This induction is justified by the same argument used to admit QUEUE-VALID.
+When applied to the goal at hand the above induction scheme produces
+eleven nontautological subgoals.
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.2''
+Subgoal *1/7.1
+Subgoal *1/7.1'
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6''
+Subgoal *1/6'''
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4''
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.2'
+Subgoal *1/3.2''
+Subgoal *1/3.1
+Subgoal *1/3.1'
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2''
+Subgoal *1/2'''
+Subgoal *1/1
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+Summary
+Form:  ( DEFTHM QUEUE-DELETE-MIN-SMALLER-SIZE ...)
+Rules: ((:DEFINITION FIX)
+        (:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-DELETE-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-SIZE)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-LINEAR NIL)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-DELETE-MIN)
+        (:INDUCTION QUEUE-SIZE)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE COMMUTATIVITY-OF-+)
+        (:REWRITE UNICITY-OF-0)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
+        (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
+        (:TYPE-PRESCRIPTION QUEUE-SIZE))
+Time:  0.43 seconds (prove: 0.41, print: 0.01, other: 0.00)
+Prover steps counted:  13824
+ QUEUE-DELETE-MIN-SMALLER-SIZE
+ACL2 !>>Goal'
+Subgoal 2
+
+([ A key checkpoint:
+
+Subgoal 2
+(IMPLIES (AND (INTEGERP K)
+              (NOT (EQUAL K (CAR (QUEUE-FIND-MIN QUEUE))))
+              (QUEUE-VALID QUEUE)
+              (QUEUE-CONTAINS K V QUEUE))
+         (QUEUE-CONTAINS K V (QUEUE-DELETE-MIN QUEUE)))
+
+*1 (Subgoal 2) is pushed for proof by induction.
+
+])
+Subgoal 1
+
+([ A key checkpoint:
+
+Subgoal 1
+(IMPLIES (AND (INTEGERP K)
+              (NOT (EQUAL V (CADR (QUEUE-FIND-MIN QUEUE))))
+              (QUEUE-VALID QUEUE)
+              (QUEUE-CONTAINS K V QUEUE))
+         (QUEUE-CONTAINS K V (QUEUE-DELETE-MIN QUEUE)))
+
+Normally we would attempt to prove Subgoal 1 by induction.  However,
+we prefer in this instance to focus on the original input conjecture
+rather than this simplified special case.  We therefore abandon our
+previous work on this conjecture and reassign the name *1 to the original
+conjecture.  (See :DOC otf-flg.)
+
+])
+
+Perhaps we can prove *1 by induction.  One induction scheme is suggested
+by this conjecture.  
+
+We will induct according to a scheme suggested by (QUEUE-FIND-MIN QUEUE).
+This suggestion was produced using the :induction rule QUEUE-FIND-MIN.
+If we let (:P K QUEUE V) denote *1 above then the induction scheme
+we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL (QUEUE-LEFT QUEUE)))
+                   (<= (QUEUE-KEY QUEUE)
+                       (QUEUE-KEY (QUEUE-FIND-MIN (QUEUE-LEFT QUEUE))))
+                   (:P K (QUEUE-LEFT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (AND (NOT (QUEUE-NULL (QUEUE-LEFT QUEUE)))
+                   (< (QUEUE-KEY (QUEUE-FIND-MIN (QUEUE-LEFT QUEUE)))
+                      (QUEUE-KEY QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (QUEUE-NULL (QUEUE-LEFT QUEUE))
+              (:P K QUEUE V))).
+This induction is justified by the same argument used to admit 
+QUEUE-FIND-MIN.  When applied to the goal at hand the above induction
+scheme produces three nontautological subgoals.
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.12
+Subgoal *1/3.11
+Subgoal *1/3.10
+Subgoal *1/3.9
+Subgoal *1/3.8
+Subgoal *1/3.8'
+Subgoal *1/3.7
+Subgoal *1/3.7'
+Subgoal *1/3.6
+Subgoal *1/3.5
+Subgoal *1/3.4
+Subgoal *1/3.3
+Subgoal *1/3.2
+Subgoal *1/3.2'
+Subgoal *1/3.2''
+Subgoal *1/3.2.4
+Subgoal *1/3.2.3
+Subgoal *1/3.2.2
+Subgoal *1/3.2.2'
+Subgoal *1/3.2.2''
+Subgoal *1/3.2.2.3
+Subgoal *1/3.2.2.2
+Subgoal *1/3.2.2.2'
+Subgoal *1/3.2.2.2''
+
+([ A key checkpoint while proving *1 (descended from Goal):
+
+Subgoal *1/3.2''
+(IMPLIES (AND (CONSP (CADDR QUEUE))
+              (<= (CAR QUEUE)
+                  (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (INTEGERP (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (NOT (EQUAL (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                          (CAR QUEUE)))
+              (INTEGERP (CAR QUEUE))
+              (QUEUE-ALL-LT (CAR QUEUE) (CADDR QUEUE))
+              (QUEUE-ALL-GET (CAR QUEUE)
+                             (CADDDR QUEUE))
+              (QUEUE-VALID (CADDR QUEUE))
+              (QUEUE-VALID (CADDDR QUEUE))
+              (CONSP QUEUE)
+              (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                              (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                              (CADDR QUEUE))
+              (NOT (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                                   (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                                   (QUEUE-DELETE-MIN (CADDR QUEUE)))))
+         (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                         (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                         (CADDDR QUEUE)))
+
+*1.1 (Subgoal *1/3.2.2.2'') is pushed for proof by induction.
+Subgoal *1/3.2.2.1
+Subgoal *1/3.2.2.1'
+Subgoal *1/3.2.2.1''
+
+*1.2 (Subgoal *1/3.2.2.1'') is pushed for proof by induction.
+Subgoal *1/3.2.1
+Subgoal *1/3.2.1'
+Subgoal *1/3.2.1''
+Subgoal *1/3.2.1.3
+Subgoal *1/3.2.1.2
+Subgoal *1/3.2.1.2'
+Subgoal *1/3.2.1.2''
+
+*1.3 (Subgoal *1/3.2.1.2'') is pushed for proof by induction.
+Subgoal *1/3.2.1.1
+Subgoal *1/3.2.1.1'
+
+*1.4 (Subgoal *1/3.2.1.1') is pushed for proof by induction.
+
+])
+Subgoal *1/3.1
+Subgoal *1/3.1'
+Subgoal *1/3.1.2
+Subgoal *1/3.1.2'
+Subgoal *1/3.1.2.4
+Subgoal *1/3.1.2.3
+Subgoal *1/3.1.2.2
+Subgoal *1/3.1.2.2'
+Subgoal *1/3.1.2.2''
+Subgoal *1/3.1.2.2.3
+Subgoal *1/3.1.2.2.2
+Subgoal *1/3.1.2.2.2'
+Subgoal *1/3.1.2.2.2''
+Subgoal *1/3.1.2.2.2'''
+
+([ A key checkpoint while proving *1 (descended from Goal):
+
+Subgoal *1/3.1.2'
+(IMPLIES (AND (CONSP (CADDR QUEUE))
+              (<= (CAR QUEUE) (CAR QUEUE))
+              (INTEGERP (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (NOT (EQUAL (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                          (CADR QUEUE)))
+              (INTEGERP (CAR QUEUE))
+              (QUEUE-ALL-LT (CAR QUEUE) (CADDR QUEUE))
+              (QUEUE-ALL-GET (CAR QUEUE)
+                             (CADDDR QUEUE))
+              (QUEUE-VALID (CADDR QUEUE))
+              (QUEUE-VALID (CADDDR QUEUE))
+              (CONSP QUEUE)
+              (EQUAL (CAR QUEUE)
+                     (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (QUEUE-CONTAINS (CAR QUEUE)
+                              (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                              (CADDR QUEUE))
+              (NOT (QUEUE-CONTAINS (CAR QUEUE)
+                                   (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                                   (QUEUE-DELETE-MIN (CADDR QUEUE)))))
+         (QUEUE-CONTAINS (CAR QUEUE)
+                         (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                         (CADDDR QUEUE)))
+
+*1.5 (Subgoal *1/3.1.2.2.2''') is pushed for proof by induction.
+Subgoal *1/3.1.2.2.1
+Subgoal *1/3.1.2.2.1'
+Subgoal *1/3.1.2.2.1''
+
+*1.6 (Subgoal *1/3.1.2.2.1'') is pushed for proof by induction.
+Subgoal *1/3.1.2.1
+Subgoal *1/3.1.2.1'
+Subgoal *1/3.1.2.1''
+Subgoal *1/3.1.2.1.3
+Subgoal *1/3.1.2.1.2
+Subgoal *1/3.1.2.1.2'
+Subgoal *1/3.1.2.1.2''
+Subgoal *1/3.1.2.1.2'''
+
+*1.7 (Subgoal *1/3.1.2.1.2''') is pushed for proof by induction.
+Subgoal *1/3.1.2.1.1
+Subgoal *1/3.1.2.1.1'
+
+*1.8 (Subgoal *1/3.1.2.1.1') is pushed for proof by induction.
+
+])
+Subgoal *1/3.1.1
+Subgoal *1/3.1.1.4
+Subgoal *1/3.1.1.3
+Subgoal *1/3.1.1.2
+Subgoal *1/3.1.1.2'
+Subgoal *1/3.1.1.2''
+Subgoal *1/3.1.1.2.3
+Subgoal *1/3.1.1.2.2
+Subgoal *1/3.1.1.2.2'
+Subgoal *1/3.1.1.2.2''
+Subgoal *1/3.1.1.2.2'''
+
+([ A key checkpoint while proving *1 (descended from Goal):
+
+Subgoal *1/3.1.1
+(IMPLIES (AND (CONSP (CADDR QUEUE))
+              (<= (CAR QUEUE)
+                  (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (INTEGERP (CAR (QUEUE-FIND-MIN (CADDR QUEUE))))
+              (NOT (EQUAL (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                          (CADR QUEUE)))
+              (INTEGERP (CAR QUEUE))
+              (QUEUE-ALL-LT (CAR QUEUE) (CADDR QUEUE))
+              (QUEUE-ALL-GET (CAR QUEUE)
+                             (CADDDR QUEUE))
+              (QUEUE-VALID (CADDR QUEUE))
+              (QUEUE-VALID (CADDDR QUEUE))
+              (CONSP QUEUE)
+              (NOT (EQUAL (CAR QUEUE)
+                          (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))))
+              (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                              (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                              (CADDR QUEUE))
+              (NOT (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                                   (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                                   (QUEUE-DELETE-MIN (CADDR QUEUE)))))
+         (QUEUE-CONTAINS (CAR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                         (CADR (QUEUE-FIND-MIN (CADDR QUEUE)))
+                         (CADDDR QUEUE)))
+
+*1.9 (Subgoal *1/3.1.1.2.2''') is pushed for proof by induction.
+Subgoal *1/3.1.1.2.1
+Subgoal *1/3.1.1.2.1'
+Subgoal *1/3.1.1.2.1''
+
+*1.10 (Subgoal *1/3.1.1.2.1'') is pushed for proof by induction.
+Subgoal *1/3.1.1.1
+Subgoal *1/3.1.1.1'
+Subgoal *1/3.1.1.1''
+Subgoal *1/3.1.1.1.3
+Subgoal *1/3.1.1.1.2
+Subgoal *1/3.1.1.1.2'
+Subgoal *1/3.1.1.1.2''
+Subgoal *1/3.1.1.1.2'''
+
+*1.11 (Subgoal *1/3.1.1.1.2''') is pushed for proof by induction.
+Subgoal *1/3.1.1.1.1
+Subgoal *1/3.1.1.1.1'
+
+*1.12 (Subgoal *1/3.1.1.1.1') is pushed for proof by induction.
+
+])
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.12
+Subgoal *1/2.12'
+Subgoal *1/2.11
+Subgoal *1/2.11'
+Subgoal *1/2.10
+Subgoal *1/2.10'
+Subgoal *1/2.9
+Subgoal *1/2.9'
+Subgoal *1/2.8
+Subgoal *1/2.7
+Subgoal *1/2.6
+Subgoal *1/2.5
+Subgoal *1/2.4
+Subgoal *1/2.3
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+Subgoal *1/1.2
+Subgoal *1/1.1
+
+So we now return to *1.12, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN3 QUEUE3))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-ALL-GET QUEUE1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (NOT (EQUAL QUEUE1 QFMN1))
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE7)).
+
+But the formula above is subsumed by *1.10, which we'll try to prove
+later.  We therefore regard *1.12 as proved (pending the proof of the
+more general *1.10).
+
+We next consider *1.11, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-ALL-GET QUEUE1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (NOT (EQUAL QUEUE1 QFMN1))
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 NIL QUEUE7)).
+
+But the formula above is subsumed by *1.9, which we'll try to prove
+later.  We therefore regard *1.11 as proved (pending the proof of the
+more general *1.9).
+
+We next consider *1.10, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN3 QUEUE3))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (NOT (EQUAL QUEUE1 QFMN1))
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5))
+         (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))).
+
+But the formula above is subsumed by *1.2, which we'll try to prove
+later.  We therefore regard *1.10 as proved (pending the proof of the
+more general *1.2).
+
+We next consider *1.9, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (NOT (EQUAL QUEUE1 QFMN1))
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5))
+         (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))).
+
+But the formula above is subsumed by *1.2, which we'll try to prove
+later.  We therefore regard *1.9 as proved (pending the proof of the
+more general *1.2).
+
+Subgoal *1/3.1.1 COMPLETED!
+
+We next consider *1.8, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QFMN1 QFMN1)
+              (NOT (EQUAL QFMN3 QUEUE3))
+              (INTEGERP QFMN1)
+              (QUEUE-ALL-LT QFMN1 QUEUE5)
+              (QUEUE-ALL-GET QFMN1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE7)).
+
+But the formula above is subsumed by *1.6, which we'll try to prove
+later.  We therefore regard *1.8 as proved (pending the proof of the
+more general *1.6).
+
+We next consider *1.7, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QFMN1 QFMN1)
+              (INTEGERP QFMN1)
+              (QUEUE-ALL-LT QFMN1 QUEUE5)
+              (QUEUE-ALL-GET QFMN1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 NIL QUEUE7)).
+
+But the formula above is subsumed by *1.5, which we'll try to prove
+later.  We therefore regard *1.7 as proved (pending the proof of the
+more general *1.5).
+
+We next consider *1.6, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QFMN1 QFMN1)
+              (NOT (EQUAL QFMN3 QUEUE3))
+              (INTEGERP QFMN1)
+              (QUEUE-ALL-LT QFMN1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5))
+         (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))).
+Subgoal *1.6/11
+Subgoal *1.6/11'
+Subgoal *1.6/11.8
+Subgoal *1.6/11.7
+Subgoal *1.6/11.6
+Subgoal *1.6/11.6'
+Subgoal *1.6/11.5
+Subgoal *1.6/11.4
+Subgoal *1.6/11.3
+Subgoal *1.6/11.2
+Subgoal *1.6/11.2'
+Subgoal *1.6/11.1
+Subgoal *1.6/10
+Subgoal *1.6/10'
+Subgoal *1.6/10.8
+Subgoal *1.6/10.7
+Subgoal *1.6/10.6
+Subgoal *1.6/10.5
+Subgoal *1.6/10.4
+Subgoal *1.6/10.3
+Subgoal *1.6/10.2
+Subgoal *1.6/10.1
+Subgoal *1.6/9
+Subgoal *1.6/9'
+Subgoal *1.6/9.8
+Subgoal *1.6/9.7
+Subgoal *1.6/9.6
+Subgoal *1.6/9.5
+Subgoal *1.6/9.4
+Subgoal *1.6/9.3
+Subgoal *1.6/9.2
+Subgoal *1.6/9.1
+Subgoal *1.6/8
+Subgoal *1.6/8'
+Subgoal *1.6/8.8
+Subgoal *1.6/8.7
+Subgoal *1.6/8.6
+Subgoal *1.6/8.5
+Subgoal *1.6/8.4
+Subgoal *1.6/8.3
+Subgoal *1.6/8.2
+Subgoal *1.6/8.1
+Subgoal *1.6/7
+Subgoal *1.6/7'
+Subgoal *1.6/7.8
+Subgoal *1.6/7.7
+Subgoal *1.6/7.6
+Subgoal *1.6/7.6'
+Subgoal *1.6/7.5
+Subgoal *1.6/7.4
+Subgoal *1.6/7.3
+Subgoal *1.6/7.2
+Subgoal *1.6/7.2'
+Subgoal *1.6/7.1
+Subgoal *1.6/6
+Subgoal *1.6/6'
+Subgoal *1.6/6.8
+Subgoal *1.6/6.8'
+Subgoal *1.6/6.7
+Subgoal *1.6/6.7'
+Subgoal *1.6/6.6
+Subgoal *1.6/6.6'
+Subgoal *1.6/6.5
+Subgoal *1.6/6.4
+Subgoal *1.6/6.4'
+Subgoal *1.6/6.3
+Subgoal *1.6/6.3'
+Subgoal *1.6/6.2
+Subgoal *1.6/6.2'
+Subgoal *1.6/6.1
+Subgoal *1.6/5
+Subgoal *1.6/5'
+Subgoal *1.6/5.8
+Subgoal *1.6/5.7
+Subgoal *1.6/5.6
+Subgoal *1.6/5.5
+Subgoal *1.6/5.4
+Subgoal *1.6/5.3
+Subgoal *1.6/5.2
+Subgoal *1.6/5.1
+Subgoal *1.6/4
+Subgoal *1.6/4'
+Subgoal *1.6/4.8
+Subgoal *1.6/4.7
+Subgoal *1.6/4.6
+Subgoal *1.6/4.5
+Subgoal *1.6/4.4
+Subgoal *1.6/4.3
+Subgoal *1.6/4.2
+Subgoal *1.6/4.1
+Subgoal *1.6/3
+Subgoal *1.6/3'
+Subgoal *1.6/2
+Subgoal *1.6/2'
+Subgoal *1.6/1
+
+*1.6 is COMPLETED!
+
+We therefore turn our attention to *1.5, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QFMN1 QFMN1)
+              (INTEGERP QFMN1)
+              (QUEUE-ALL-LT QFMN1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5))
+         (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))).
+Subgoal *1.5/11
+Subgoal *1.5/11'
+Subgoal *1.5/11.8
+Subgoal *1.5/11.7
+Subgoal *1.5/11.6
+Subgoal *1.5/11.6'
+Subgoal *1.5/11.5
+Subgoal *1.5/11.4
+Subgoal *1.5/11.3
+Subgoal *1.5/11.2
+Subgoal *1.5/11.2'
+Subgoal *1.5/11.1
+Subgoal *1.5/10
+Subgoal *1.5/10'
+Subgoal *1.5/10.8
+Subgoal *1.5/10.7
+Subgoal *1.5/10.6
+Subgoal *1.5/10.5
+Subgoal *1.5/10.4
+Subgoal *1.5/10.3
+Subgoal *1.5/10.2
+Subgoal *1.5/10.1
+Subgoal *1.5/9
+Subgoal *1.5/9'
+Subgoal *1.5/9.8
+Subgoal *1.5/9.7
+Subgoal *1.5/9.6
+Subgoal *1.5/9.5
+Subgoal *1.5/9.4
+Subgoal *1.5/9.3
+Subgoal *1.5/9.2
+Subgoal *1.5/9.1
+Subgoal *1.5/8
+Subgoal *1.5/8'
+Subgoal *1.5/8.8
+Subgoal *1.5/8.7
+Subgoal *1.5/8.6
+Subgoal *1.5/8.5
+Subgoal *1.5/8.4
+Subgoal *1.5/8.3
+Subgoal *1.5/8.2
+Subgoal *1.5/8.1
+Subgoal *1.5/7
+Subgoal *1.5/7'
+Subgoal *1.5/7.8
+Subgoal *1.5/7.7
+Subgoal *1.5/7.6
+Subgoal *1.5/7.6'
+Subgoal *1.5/7.5
+Subgoal *1.5/7.4
+Subgoal *1.5/7.3
+Subgoal *1.5/7.2
+Subgoal *1.5/7.2'
+Subgoal *1.5/7.1
+Subgoal *1.5/6
+Subgoal *1.5/6'
+Subgoal *1.5/6.8
+Subgoal *1.5/6.8'
+Subgoal *1.5/6.7
+Subgoal *1.5/6.7'
+Subgoal *1.5/6.6
+Subgoal *1.5/6.6'
+Subgoal *1.5/6.5
+Subgoal *1.5/6.4
+Subgoal *1.5/6.4'
+Subgoal *1.5/6.3
+Subgoal *1.5/6.3'
+Subgoal *1.5/6.2
+Subgoal *1.5/6.2'
+Subgoal *1.5/6.1
+Subgoal *1.5/5
+Subgoal *1.5/5'
+Subgoal *1.5/5.8
+Subgoal *1.5/5.7
+Subgoal *1.5/5.6
+Subgoal *1.5/5.5
+Subgoal *1.5/5.4
+Subgoal *1.5/5.3
+Subgoal *1.5/5.2
+Subgoal *1.5/5.1
+Subgoal *1.5/4
+Subgoal *1.5/4'
+Subgoal *1.5/4.8
+Subgoal *1.5/4.7
+Subgoal *1.5/4.6
+Subgoal *1.5/4.5
+Subgoal *1.5/4.4
+Subgoal *1.5/4.3
+Subgoal *1.5/4.2
+Subgoal *1.5/4.1
+Subgoal *1.5/3
+Subgoal *1.5/3'
+Subgoal *1.5/2
+Subgoal *1.5/2'
+Subgoal *1.5/1
+
+*1.5 is COMPLETED!
+Thus key checkpoint Subgoal *1/3.1.2' is COMPLETED!
+
+We therefore turn our attention to *1.4, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN1 QUEUE1))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-ALL-GET QUEUE1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE7)).
+
+But the formula above is subsumed by *1.2, which we'll try to prove
+later.  We therefore regard *1.4 as proved (pending the proof of the
+more general *1.2).
+
+We next consider *1.3, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN1 QUEUE1))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-ALL-GET QUEUE1 QUEUE7)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-VALID QUEUE7)
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5)
+              (NOT (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))))
+         (QUEUE-CONTAINS QFMN1 NIL QUEUE7)).
+
+But the formula above is subsumed by *1.2, which we'll try to prove
+later.  We therefore regard *1.3 as proved (pending the proof of the
+more general *1.2).
+
+We next consider *1.2, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN1 QUEUE1))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-CONTAINS QFMN1 QFMN3 QUEUE5))
+         (QUEUE-CONTAINS QFMN1 QFMN3 (QUEUE-DELETE-MIN QUEUE5))).
+Subgoal *1.2/11
+Subgoal *1.2/11'
+Subgoal *1.2/11.8
+Subgoal *1.2/11.7
+Subgoal *1.2/11.6
+Subgoal *1.2/11.6'
+Subgoal *1.2/11.5
+Subgoal *1.2/11.4
+Subgoal *1.2/11.3
+Subgoal *1.2/11.2
+Subgoal *1.2/11.2'
+Subgoal *1.2/11.1
+Subgoal *1.2/10
+Subgoal *1.2/10'
+Subgoal *1.2/10.8
+Subgoal *1.2/10.7
+Subgoal *1.2/10.6
+Subgoal *1.2/10.5
+Subgoal *1.2/10.4
+Subgoal *1.2/10.3
+Subgoal *1.2/10.2
+Subgoal *1.2/10.1
+Subgoal *1.2/9
+Subgoal *1.2/9'
+Subgoal *1.2/9.8
+Subgoal *1.2/9.7
+Subgoal *1.2/9.6
+Subgoal *1.2/9.5
+Subgoal *1.2/9.4
+Subgoal *1.2/9.3
+Subgoal *1.2/9.2
+Subgoal *1.2/9.1
+Subgoal *1.2/8
+Subgoal *1.2/8'
+Subgoal *1.2/8.8
+Subgoal *1.2/8.7
+Subgoal *1.2/8.6
+Subgoal *1.2/8.5
+Subgoal *1.2/8.4
+Subgoal *1.2/8.3
+Subgoal *1.2/8.2
+Subgoal *1.2/8.1
+Subgoal *1.2/7
+Subgoal *1.2/7'
+Subgoal *1.2/7.8
+Subgoal *1.2/7.7
+Subgoal *1.2/7.6
+Subgoal *1.2/7.6'
+Subgoal *1.2/7.5
+Subgoal *1.2/7.4
+Subgoal *1.2/7.3
+Subgoal *1.2/7.2
+Subgoal *1.2/7.2'
+Subgoal *1.2/7.1
+Subgoal *1.2/6
+Subgoal *1.2/6'
+Subgoal *1.2/6.8
+Subgoal *1.2/6.8'
+Subgoal *1.2/6.7
+Subgoal *1.2/6.7'
+Subgoal *1.2/6.6
+Subgoal *1.2/6.6'
+Subgoal *1.2/6.5
+Subgoal *1.2/6.4
+Subgoal *1.2/6.4'
+Subgoal *1.2/6.3
+Subgoal *1.2/6.3'
+Subgoal *1.2/6.2
+Subgoal *1.2/6.2'
+Subgoal *1.2/6.1
+Subgoal *1.2/5
+Subgoal *1.2/5'
+Subgoal *1.2/5.8
+Subgoal *1.2/5.7
+Subgoal *1.2/5.6
+Subgoal *1.2/5.5
+Subgoal *1.2/5.4
+Subgoal *1.2/5.3
+Subgoal *1.2/5.2
+Subgoal *1.2/5.1
+Subgoal *1.2/4
+Subgoal *1.2/4'
+Subgoal *1.2/4.8
+Subgoal *1.2/4.7
+Subgoal *1.2/4.6
+Subgoal *1.2/4.5
+Subgoal *1.2/4.4
+Subgoal *1.2/4.3
+Subgoal *1.2/4.2
+Subgoal *1.2/4.1
+Subgoal *1.2/3
+Subgoal *1.2/3'
+Subgoal *1.2/2
+Subgoal *1.2/2'
+Subgoal *1.2/1
+
+*1.2 is COMPLETED!
+
+We therefore turn our attention to *1.1, which is
+
+(IMPLIES (AND (CONSP QUEUE5)
+              (<= QUEUE1 QFMN1)
+              (INTEGERP QFMN1)
+              (NOT (EQUAL QFMN1 QUEUE1))
+              (INTEGERP QUEUE1)
+              (QUEUE-ALL-LT QUEUE1 QUEUE5)
+              (QUEUE-VALID QUEUE5)
+              (QUEUE-CONTAINS QFMN1 NIL QUEUE5))
+         (QUEUE-CONTAINS QFMN1 NIL (QUEUE-DELETE-MIN QUEUE5))).
+Subgoal *1.1/11
+Subgoal *1.1/11'
+Subgoal *1.1/11.8
+Subgoal *1.1/11.7
+Subgoal *1.1/11.6
+Subgoal *1.1/11.6'
+Subgoal *1.1/11.5
+Subgoal *1.1/11.4
+Subgoal *1.1/11.3
+Subgoal *1.1/11.2
+Subgoal *1.1/11.2'
+Subgoal *1.1/11.1
+Subgoal *1.1/10
+Subgoal *1.1/10'
+Subgoal *1.1/10.8
+Subgoal *1.1/10.7
+Subgoal *1.1/10.6
+Subgoal *1.1/10.5
+Subgoal *1.1/10.4
+Subgoal *1.1/10.3
+Subgoal *1.1/10.2
+Subgoal *1.1/10.1
+Subgoal *1.1/9
+Subgoal *1.1/9'
+Subgoal *1.1/9.8
+Subgoal *1.1/9.7
+Subgoal *1.1/9.6
+Subgoal *1.1/9.5
+Subgoal *1.1/9.4
+Subgoal *1.1/9.3
+Subgoal *1.1/9.2
+Subgoal *1.1/9.1
+Subgoal *1.1/8
+Subgoal *1.1/8'
+Subgoal *1.1/8.8
+Subgoal *1.1/8.7
+Subgoal *1.1/8.6
+Subgoal *1.1/8.5
+Subgoal *1.1/8.4
+Subgoal *1.1/8.3
+Subgoal *1.1/8.2
+Subgoal *1.1/8.1
+Subgoal *1.1/7
+Subgoal *1.1/7'
+Subgoal *1.1/7.8
+Subgoal *1.1/7.7
+Subgoal *1.1/7.6
+Subgoal *1.1/7.6'
+Subgoal *1.1/7.5
+Subgoal *1.1/7.4
+Subgoal *1.1/7.3
+Subgoal *1.1/7.2
+Subgoal *1.1/7.2'
+Subgoal *1.1/7.1
+Subgoal *1.1/6
+Subgoal *1.1/6'
+Subgoal *1.1/6.8
+Subgoal *1.1/6.8'
+Subgoal *1.1/6.7
+Subgoal *1.1/6.7'
+Subgoal *1.1/6.6
+Subgoal *1.1/6.6'
+Subgoal *1.1/6.5
+Subgoal *1.1/6.4
+Subgoal *1.1/6.4'
+Subgoal *1.1/6.3
+Subgoal *1.1/6.3'
+Subgoal *1.1/6.2
+Subgoal *1.1/6.2'
+Subgoal *1.1/6.1
+Subgoal *1.1/5
+Subgoal *1.1/5'
+Subgoal *1.1/5.8
+Subgoal *1.1/5.7
+Subgoal *1.1/5.6
+Subgoal *1.1/5.5
+Subgoal *1.1/5.4
+Subgoal *1.1/5.3
+Subgoal *1.1/5.2
+Subgoal *1.1/5.1
+Subgoal *1.1/4
+Subgoal *1.1/4'
+Subgoal *1.1/4.8
+Subgoal *1.1/4.7
+Subgoal *1.1/4.6
+Subgoal *1.1/4.5
+Subgoal *1.1/4.4
+Subgoal *1.1/4.3
+Subgoal *1.1/4.2
+Subgoal *1.1/4.1
+Subgoal *1.1/3
+Subgoal *1.1/3'
+Subgoal *1.1/2
+Subgoal *1.1/2'
+Subgoal *1.1/1
+
+*1.1 and *1 are COMPLETED!
+Thus key checkpoints Subgoal *1/3.2'' and Goal are COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-DELETE-MIN-CONTAINS depends upon the :type-prescription
+rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-DELETE-MIN-CONTAINS ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION NOT)
+        (:DEFINITION QUEUE-ALL-GET)
+        (:DEFINITION QUEUE-ALL-LT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-DELETE-MIN)
+        (:DEFINITION QUEUE-FIND-MIN)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:ELIM CAR-CDR-ELIM)
+        (:EXECUTABLE-COUNTERPART NOT)
+        (:EXECUTABLE-COUNTERPART QUEUE-NULL)
+        (:EXECUTABLE-COUNTERPART QUEUE-VALID)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-ALL-LT)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-DELETE-MIN)
+        (:INDUCTION QUEUE-FIND-MIN)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE CAR-CONS)
+        (:REWRITE CDR-CONS)
+        (:REWRITE DEFAULT-CAR)
+        (:REWRITE QUEUE-ALL-GET-TRANSITIVITY)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
+Time:  9.07 seconds (prove: 8.94, print: 0.13, other: 0.00)
+Prover steps counted:  295335
+ QUEUE-DELETE-MIN-CONTAINS
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  These merge into two derived induction
+schemes.  However, one of these is flawed and so we are left with one
+viable candidate.  
+
+We will induct according to a scheme suggested by (QUEUE-MERGE Q1 Q2).
+This suggestion was produced using the :induction rules QUEUE-MERGE
+and QUEUE-VALID.  If we let (:P Q1 Q2) denote *1 above then the induction
+scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL Q1))
+                   (:P (QUEUE-LEFT Q1)
+                       (QUEUE-MERGE (QUEUE-RIGHT Q1) Q2))
+                   (:P (QUEUE-RIGHT Q1) Q2))
+              (:P Q1 Q2))
+     (IMPLIES (QUEUE-NULL Q1) (:P Q1 Q2))).
+This induction is justified by the same argument used to admit QUEUE-MERGE.
+Note, however, that the unmeasured variable Q2 is being instantiated.
+When applied to the goal at hand the above induction scheme produces
+six nontautological subgoals.
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6''
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5''
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4''
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3''
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2''
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-MERGE-VALID depends upon the :type-prescription
+rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-MERGE-VALID ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-MERGE)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART TAU-SYSTEM)
+        (:INDUCTION QUEUE-MERGE)
+        (:INDUCTION QUEUE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.37 seconds (prove: 0.37, print: 0.01, other: 0.00)
+Prover steps counted:  11562
+ QUEUE-MERGE-VALID
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Four induction schemes are suggested
+by this conjecture.  These merge into two derived induction schemes.
+However, one of these is flawed and so we are left with one viable
+candidate.  
+
+We will induct according to a scheme suggested by (QUEUE-MERGE Q1 Q2).
+This suggestion was produced using the :induction rules QUEUE-MERGE
+and QUEUE-VALID.  If we let (:P K Q1 Q2 V) denote *1 above then the
+induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL Q1))
+                   (:P K (QUEUE-LEFT Q1)
+                       (QUEUE-MERGE (QUEUE-RIGHT Q1) Q2)
+                       V)
+                   (:P K (QUEUE-RIGHT Q1) Q2 V))
+              (:P K Q1 Q2 V))
+     (IMPLIES (QUEUE-NULL Q1)
+              (:P K Q1 Q2 V))).
+This induction is justified by the same argument used to admit QUEUE-MERGE.
+Note, however, that the unmeasured variable Q2 is being instantiated.
+When applied to the goal at hand the above induction scheme produces
+eight nontautological subgoals.
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8''
+Subgoal *1/8'''
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7''
+Subgoal *1/7'''
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6''
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5''
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4''
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3''
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2''
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-MERGE-CONTAINS-RIGHT depends upon the :type-prescription
+rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-MERGE-CONTAINS-RIGHT ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-MERGE)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:INDUCTION QUEUE-MERGE)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE QUEUE-INSERT-ALREADY-CONTAINS)
+        (:REWRITE QUEUE-MERGE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.58 seconds (prove: 0.58, print: 0.00, other: 0.00)
+Prover steps counted:  17952
+ QUEUE-MERGE-CONTAINS-RIGHT
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Four induction schemes are suggested
+by this conjecture.  These merge into two derived induction schemes.
+However, one of these is flawed and so we are left with one viable
+candidate.  
+
+We will induct according to a scheme suggested by (QUEUE-MERGE Q1 Q2),
+but modified to accommodate (QUEUE-CONTAINS K V Q1).  These suggestions
+were produced using the :induction rules QUEUE-CONTAINS, QUEUE-MERGE
+and QUEUE-VALID.  If we let (:P K Q1 Q2 V) denote *1 above then the
+induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL Q1))
+                   (:P K (QUEUE-LEFT Q1)
+                       (QUEUE-MERGE (QUEUE-RIGHT Q1) Q2)
+                       V)
+                   (:P K (QUEUE-RIGHT Q1) Q2 V))
+              (:P K Q1 Q2 V))
+     (IMPLIES (QUEUE-NULL Q1)
+              (:P K Q1 Q2 V))).
+This induction is justified by the same argument used to admit QUEUE-MERGE.
+Note, however, that the unmeasured variable Q2 is being instantiated.
+When applied to the goal at hand the above induction scheme produces
+thirteen nontautological subgoals.
+Subgoal *1/13
+Subgoal *1/13'
+Subgoal *1/13.2
+Subgoal *1/13.2'
+Subgoal *1/13.1
+Subgoal *1/13.1'
+Subgoal *1/12
+Subgoal *1/12'
+Subgoal *1/12.2
+Subgoal *1/12.1
+Subgoal *1/12.1'
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/11.2
+Subgoal *1/11.2'
+Subgoal *1/11.1
+Subgoal *1/11.1'
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/10.2
+Subgoal *1/10.1
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/9.2
+Subgoal *1/9.2'
+Subgoal *1/9.1
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.2'
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6.2
+Subgoal *1/6.1
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-MERGE-CONTAINS-LEFT depends upon the :type-prescription
+rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-MERGE-CONTAINS-LEFT ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-MERGE)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-MERGE)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE QUEUE-INSERT-ALREADY-CONTAINS)
+        (:REWRITE QUEUE-INSERT-CONTAINS)
+        (:REWRITE QUEUE-MERGE-CONTAINS-RIGHT)
+        (:REWRITE QUEUE-MERGE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  1.63 seconds (prove: 1.61, print: 0.02, other: 0.00)
+Prover steps counted:  50555
+ QUEUE-MERGE-CONTAINS-LEFT
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Five induction schemes are suggested
+by this conjecture.  These merge into two derived induction schemes.
+However, one of these is flawed and so we are left with one viable
+candidate.  
+
+We will induct according to a scheme suggested by (QUEUE-MERGE Q1 Q2),
+but modified to accommodate (QUEUE-CONTAINS K V Q1).  These suggestions
+were produced using the :induction rules QUEUE-CONTAINS, QUEUE-MERGE
+and QUEUE-VALID.  If we let (:P K Q1 Q2 V) denote *1 above then the
+induction scheme we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL Q1))
+                   (:P K (QUEUE-LEFT Q1)
+                       (QUEUE-MERGE (QUEUE-RIGHT Q1) Q2)
+                       V)
+                   (:P K (QUEUE-RIGHT Q1) Q2 V))
+              (:P K Q1 Q2 V))
+     (IMPLIES (QUEUE-NULL Q1)
+              (:P K Q1 Q2 V))).
+This induction is justified by the same argument used to admit QUEUE-MERGE.
+Note, however, that the unmeasured variable Q2 is being instantiated.
+When applied to the goal at hand the above induction scheme produces
+15 nontautological subgoals.
+Subgoal *1/15
+Subgoal *1/15'
+Subgoal *1/15.2
+Subgoal *1/15.2'
+Subgoal *1/15.1
+Subgoal *1/15.1'
+Subgoal *1/14
+Subgoal *1/14'
+Subgoal *1/14.2
+Subgoal *1/14.1
+Subgoal *1/13
+Subgoal *1/13'
+Subgoal *1/13.2
+Subgoal *1/13.2'
+Subgoal *1/13.1
+Subgoal *1/13.1'
+Subgoal *1/12
+Subgoal *1/12'
+Subgoal *1/12.2
+Subgoal *1/12.1
+Subgoal *1/11
+Subgoal *1/11'
+Subgoal *1/11.2
+Subgoal *1/11.1
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/10.2
+Subgoal *1/10.1
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/9.2
+Subgoal *1/9.1
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.2
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6.2
+Subgoal *1/6.1
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+Summary
+Form:  ( DEFTHM QUEUE-MERGE-NOT-CONTAINS ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-MERGE)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-MERGE)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE QUEUE-INSERT-NOT-CONTAINS)
+        (:REWRITE QUEUE-MERGE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  1.79 seconds (prove: 1.78, print: 0.01, other: 0.00)
+Prover steps counted:  54716
+ QUEUE-MERGE-NOT-CONTAINS
+ACL2 !>>
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by 
+(QUEUE-CHANGE-PRIORITY K V QUEUE).  This suggestion was produced using
+the :induction rules QUEUE-CHANGE-PRIORITY and QUEUE-VALID.  If we
+let (:P K QUEUE V) denote *1 above then the induction scheme we'll
+use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V)
+                   (:P K (QUEUE-RIGHT QUEUE) V))
+              (:P K QUEUE V))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V))).
+This induction is justified by the same argument used to admit 
+QUEUE-CHANGE-PRIORITY.  When applied to the goal at hand the above
+induction scheme produces five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-CHANGE-PRIORITY-VALID depends upon the :type-
+prescription rule QUEUE-VALID.
+
+Summary
+Form:  ( DEFTHM QUEUE-CHANGE-PRIORITY-VALID ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CHANGE-PRIORITY)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:EXECUTABLE-COUNTERPART TAU-SYSTEM)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CHANGE-PRIORITY)
+        (:INDUCTION QUEUE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.44 seconds (prove: 0.44, print: 0.00, other: 0.00)
+Prover steps counted:  13865
+ QUEUE-CHANGE-PRIORITY-VALID
+ACL2 !>>
+ACL2 Warning [Free] in ( DEFTHM QUEUE-CHANGE-PRIORITY-CONTAINS ...):
+A :REWRITE rule generated from QUEUE-CHANGE-PRIORITY-CONTAINS contains
+the free variable K.  This variable will be chosen by searching for
+an instance of (INTEGERP K) in the context of the term being rewritten.
+This is generally a severe restriction on the applicability of a :REWRITE
+rule.  See :DOC free-variables.
+
+
+*1 (the initial Goal, a key checkpoint) is pushed for proof by induction.
+
+Perhaps we can prove *1 by induction.  Three induction schemes are
+suggested by this conjecture.  These merge into one derived induction
+scheme.  
+
+We will induct according to a scheme suggested by 
+(QUEUE-CHANGE-PRIORITY X V QUEUE), but modified to accommodate 
+(QUEUE-CONTAINS K V QUEUE).  These suggestions were produced using
+the :induction rules QUEUE-CHANGE-PRIORITY, QUEUE-CONTAINS and QUEUE-VALID.
+If we let (:P K QUEUE V X) denote *1 above then the induction scheme
+we'll use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X)
+                   (:P K (QUEUE-RIGHT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X))).
+This induction is justified by the same argument used to admit 
+QUEUE-CHANGE-PRIORITY.  When applied to the goal at hand the above
+induction scheme produces ten nontautological subgoals.
+Subgoal *1/10
+Subgoal *1/10'
+Subgoal *1/10.4
+Subgoal *1/10.4'
+Subgoal *1/10.3
+Subgoal *1/10.3'
+Subgoal *1/10.2
+Subgoal *1/10.2'
+Subgoal *1/10.1
+Subgoal *1/10.1'
+Subgoal *1/9
+Subgoal *1/9'
+Subgoal *1/9.4
+Subgoal *1/9.3
+Subgoal *1/9.2
+Subgoal *1/9.2'
+Subgoal *1/9.1
+Subgoal *1/9.1'
+Subgoal *1/8
+Subgoal *1/8'
+Subgoal *1/8.4
+Subgoal *1/8.3
+Subgoal *1/8.2
+Subgoal *1/8.1
+Subgoal *1/7
+Subgoal *1/7'
+Subgoal *1/7.4
+Subgoal *1/7.4'
+Subgoal *1/7.3
+Subgoal *1/7.3'
+Subgoal *1/7.2
+Subgoal *1/7.1
+Subgoal *1/6
+Subgoal *1/6'
+Subgoal *1/6.4
+Subgoal *1/6.3
+Subgoal *1/6.2
+Subgoal *1/6.1
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.4
+Subgoal *1/5.3
+Subgoal *1/5.2
+Subgoal *1/5.1
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.4
+Subgoal *1/4.3
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.4
+Subgoal *1/3.3
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.4
+Subgoal *1/2.3
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal is COMPLETED!
+
+Q.E.D.
+
+The storage of QUEUE-CHANGE-PRIORITY-CONTAINS depends upon the :type-
+prescription rule QUEUE-CONTAINS.
+
+Summary
+Form:  ( DEFTHM QUEUE-CHANGE-PRIORITY-CONTAINS ...)
+Rules: ((:DEFINITION NOT)
+        (:DEFINITION QUEUE-CHANGE-PRIORITY)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CHANGE-PRIORITY)
+        (:INDUCTION QUEUE-CONTAINS)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE QUEUE-CHANGE-PRIORITY-VALID)
+        (:REWRITE QUEUE-INSERT-ALREADY-CONTAINS)
+        (:REWRITE QUEUE-INSERT-CONTAINS)
+        (:REWRITE QUEUE-MERGE-CONTAINS-LEFT)
+        (:REWRITE QUEUE-MERGE-CONTAINS-RIGHT)
+        (:REWRITE QUEUE-MERGE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-CONTAINS)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Warnings:  Free
+Time:  2.50 seconds (prove: 2.48, print: 0.02, other: 0.00)
+Prover steps counted:  76753
+ QUEUE-CHANGE-PRIORITY-CONTAINS
+ACL2 !>>Goal'
+
+([ A key checkpoint:
+
+Goal'
+(IMPLIES (AND (INTEGERP K)
+              (INTEGERP X)
+              (NOT (EQUAL K X))
+              (QUEUE-VALID QUEUE))
+         (NOT (QUEUE-CONTAINS K V (QUEUE-CHANGE-PRIORITY X V QUEUE))))
+
+*1 (Goal') is pushed for proof by induction.
+
+])
+
+Perhaps we can prove *1 by induction.  Two induction schemes are suggested
+by this conjecture.  These merge into one derived induction scheme.
+
+We will induct according to a scheme suggested by 
+(QUEUE-CHANGE-PRIORITY X V QUEUE).  This suggestion was produced using
+the :induction rules QUEUE-CHANGE-PRIORITY and QUEUE-VALID.  If we
+let (:P K QUEUE V X) denote *1 above then the induction scheme we'll
+use is
+(AND (IMPLIES (AND (NOT (QUEUE-NULL QUEUE))
+                   (:P K (QUEUE-LEFT QUEUE) V X)
+                   (:P K (QUEUE-RIGHT QUEUE) V X))
+              (:P K QUEUE V X))
+     (IMPLIES (QUEUE-NULL QUEUE)
+              (:P K QUEUE V X))).
+This induction is justified by the same argument used to admit 
+QUEUE-CHANGE-PRIORITY.  When applied to the goal at hand the above
+induction scheme produces five nontautological subgoals.
+Subgoal *1/5
+Subgoal *1/5'
+Subgoal *1/5.2
+Subgoal *1/5.2'
+Subgoal *1/5.1
+Subgoal *1/5.1'
+Subgoal *1/4
+Subgoal *1/4'
+Subgoal *1/4.2
+Subgoal *1/4.1
+Subgoal *1/3
+Subgoal *1/3'
+Subgoal *1/3.2
+Subgoal *1/3.1
+Subgoal *1/2
+Subgoal *1/2'
+Subgoal *1/2.2
+Subgoal *1/2.1
+Subgoal *1/1
+Subgoal *1/1'
+
+*1 is COMPLETED!
+Thus key checkpoint Goal' is COMPLETED!
+
+Q.E.D.
+
+Summary
+Form:  ( DEFTHM QUEUE-CHANGE-PRIORITY-NOT-CONTAINS ...)
+Rules: ((:DEFINITION =)
+        (:DEFINITION NOT)
+        (:DEFINITION QUEUE-CHANGE-PRIORITY)
+        (:DEFINITION QUEUE-CONTAINS)
+        (:DEFINITION QUEUE-KEY)
+        (:DEFINITION QUEUE-LEFT)
+        (:DEFINITION QUEUE-NULL)
+        (:DEFINITION QUEUE-RIGHT)
+        (:DEFINITION QUEUE-VALID)
+        (:DEFINITION QUEUE-VALUE)
+        (:FAKE-RUNE-FOR-TYPE-SET NIL)
+        (:INDUCTION QUEUE-CHANGE-PRIORITY)
+        (:INDUCTION QUEUE-VALID)
+        (:REWRITE QUEUE-CHANGE-PRIORITY-VALID)
+        (:REWRITE QUEUE-INSERT-NOT-CONTAINS)
+        (:REWRITE QUEUE-MERGE-NOT-CONTAINS)
+        (:REWRITE QUEUE-MERGE-VALID)
+        (:TYPE-PRESCRIPTION QUEUE-VALID))
+Time:  0.67 seconds (prove: 0.66, print: 0.01, other: 0.00)
+Prover steps counted:  21153
+ QUEUE-CHANGE-PRIORITY-NOT-CONTAINS
+ACL2 !>> TEST-TREE
+ACL2 !>>Bye.
+ :EOF
+ACL2 !>
