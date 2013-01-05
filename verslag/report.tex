@@ -7,12 +7,36 @@
 \author{Bruno Corijn, Jasper Vander Jeugt, Toon Willems}
 \date{\today}
 
-\begin{document}
-\maketitle
-\section{Deel 1: ACL2}
-Voor de priority-queue drie versies terug te vinden. Oorspronkelijk waren we begonnen met de queue te implementeren als een binomial heap. Dit heeft als voordeel, veel sneller te zijn dan de andere alternatieven zonder veel extra implementatie. Als nadeel was de formele verificatie echter veel moeilijker te bewijzen. Hierna hebben we het geprobeerd met een linked list, wat net het tegenovergesteld was van de binomial heap. Dit was zeer makkelijk te bewijzen maar was echter ook zeer traag om te gebruiken, waardoor we ook dit niet verder hebben uitgewerkt. Uiteindelijk hebben we gekozen voor een binaire boom. In het slechtste geval zal ook deze datastructuur traag werken, gezien er niet wordt geherbalanceerd maar gemiddeld zal deze implementatie sneller zijn dan de linked list.
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
 
-\subsection{Formele Specificaties}
+\begin{document}
+
+\maketitle
+
+\section{Deel 1: ACL2}
+
+Voor de priority-queue zijn er drie versies terug te vinden. Oorspronkelijk
+waren we begonnen met de queue te implementeren als een binomial heap. Dit heeft
+als voordeel dat het veel sneller is dan de andere alternatieven. Het grote
+nadeel was echter de moeilijke formele verificatie van deze datastructuur.
+
+Hierna hebben we geprobeerd de queue te implementeren als eenvoudige linked
+list. De eigenschappen hiervan zijn min of meer tegenovergesteld aan die van de
+binomial heap: de correctheid was makkelijker te bewijzen maar het was echter
+ook zeer ineffici\"ent voor de gebruiker, waardoor we ook dit niet verder hebben
+uitgewerkt.
+
+Uiteindelijk hebben we gekozen voor een binaire boom. In het slechtste geval zal
+ook deze datastructuur traag werken, gezien er niet wordt geherbalanceerd maar
+gemiddeld zal deze implementatie sneller zijn dan de linked list.
+
+De finale implementatie kan teruggevonden worden in \texttt{binary-tree.lisp}.
+De twee andere (onafgewerkte) implementaties bevinden zich in
+\texttt{linked-list.lisp} en \texttt{binomial-heap.lisp}.
+
+\subsection{Formele specificaties}
+
 De specificaties zijn terug te vinden als theorems, die gebruik maken van enkele hulp functies. Deze functies controleren de volgende zaken: of alle elementen in de queue een kleinere prioriteit hebben dan een gegeven \emph{x}, of alle elementen in de queue een grotere of gelijke prioriteit hebben aan een gegeven \emph{x}, of er een element met prioriteit \emph{k} en value \emph{v} terug te vinden is in een gegeven queue en of de ordening van de gehele boom correct is.
 
 Bij de theorema\'s specifi\"eren we het gedrag van de priority queue en controleren we dat de correctheid bewaard blijft. In de code is er bij elk theorema commentaar voorzien zodat het duidelijk zou moeten zijn waartoe het onderstaand theorema dient.
@@ -30,8 +54,6 @@ Als laatste functionaliteit hebben we \emph{queue-change-priority(k v queue)}, d
 
 De output van de automatische verificatie van de implementatie als binaire boom is te vinden als bijlage aan ons verslag. 
 
-
 \section{Deel2: TLA/TLC}
-
 
 \end{document}
