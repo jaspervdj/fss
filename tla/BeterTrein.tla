@@ -55,7 +55,7 @@ Deur ==
 
 Next == Fluitsignaal \/ Action \/ SeinLicht \/ Vertrek \/ Reset \/ Deur
 
-Live == WF_vars(Fluitsignaal) /\ WF_vars(Action) /\ WF_vars(Vertrek) /\ WF_vars(SeinLicht) /\ WF_vars(Reset) /\ SF_vars(Deur)
+Live == WF_vars(Fluitsignaal) /\ WF_vars(Action) /\ WF_vars(Vertrek) /\ WF_vars(SeinLicht) /\ WF_vars(Reset) /\ WF_vars(Deur)
 
 Spec == Init /\ [][Next]_vars /\ Live
 
