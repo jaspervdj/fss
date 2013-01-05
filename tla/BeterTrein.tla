@@ -1,4 +1,4 @@
----- MODULE Trein ----
+---- MODULE BeterTrein ----
 EXTENDS Naturals, Sequences
 VARIABLES deuren, conducteurDeur, ac, seinlicht, vertrek
 (* deuren: variabele die aangeeft of de conducteur de deuren sluit *)
@@ -35,6 +35,7 @@ SeinLicht == ac = 1
       /\ UNCHANGED <<deuren, ac, conducteurDeur, vertrek>>
 
 Vertrek == seinlicht = "wit"
+      /\ conducteurDeur = 1
       /\ vertrek = 0
       /\ vertrek' = 1
       /\ UNCHANGED <<deuren, conducteurDeur, ac, seinlicht>>
