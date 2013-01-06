@@ -32,22 +32,7 @@ De finale implementatie kan teruggevonden worden in \texttt{binary-tree.lisp}.
 De twee andere (onafgewerkte) implementaties bevinden zich in
 \texttt{linked-list.lisp} en \texttt{binomial-heap.lisp}.
 
-\subsection{Formele specificaties}
-
-De specificaties zijn terug te vinden als theorems, die gebruik maken van enkele
-hulp functies. Deze functies controleren de volgende zaken: of alle elementen in
-de queue een kleinere prioriteit hebben dan een gegeven \texttt{x}, of alle
-elementen in de queue een grotere of gelijke prioriteit hebben aan een gegeven
-\texttt{x}, of er een element met prioriteit \texttt{k} en value \texttt{v}
-terug te vinden is in een gegeven queue en of de ordening van de gehele boom
-correct is.
-
-Bij de theorema's specifi\"eren we het gedrag van de priority queue en
-controleren we dat de correctheid bewaard blijft. In de code is er bij elk
-theorema commentaar voorzien zodat het duidelijk zou moeten zijn waartoe het
-onderstaand theorema dient.
-
-\subsection{Implementatie}
+\subsection{Interface}
 
 We bespreken eerst kort de "publieke API" van de queue. Nieuwe wachtrijen
 aanmaken:
@@ -79,6 +64,29 @@ Wachtrijen bewerken:
     \item \texttt{queue-change-priority k v queue} verandert de prioriteit van
     de elementen met als waarde \texttt{v} naar \texttt{k}.
 \end{itemize}
+
+\subsection{Formele specificaties}
+
+De specificaties zijn terug te vinden als theorems, die gebruik maken van enkele
+hulp functies.
+
+Deze functies controleren de volgende zaken: of alle elementen in de queue een
+kleinere prioriteit hebben dan een gegeven \texttt{x}, of alle elementen in de
+queue een grotere of gelijke prioriteit hebben aan een gegeven \texttt{x}, of er
+een element met prioriteit \texttt{k} en value \texttt{v} terug te vinden is in
+een gegeven queue.
+
+Het belangrijkste hulppredicaat is \texttt{queue-valid}, dit gaat na of de
+ordening van de gehele boom correct is. Dit is dan ook een nodige voorwaarde bij
+de meeste theorema's.
+
+We specifi\"eren dat na enkele mogelijke update (een element toevoegen,
+verwijderen...) \texttt{queue-valid} behouden blijft. Op die manier kunnen we
+zeggen dat \texttt{queue-valid} altijd klopt als de wachtrij is opgebouwd via de
+functies uit de publieke API.
+
+TODO. In de code is er bij elk theorema commentaar voorzien zodat het duidelijk
+zou moeten zijn waartoe het onderstaand theorema dient.
 
 \subsection{Verificatie}
 
