@@ -7,9 +7,6 @@
 \author{Bruno Corijn, Jasper Vander Jeugt, Toon Willems}
 \date{\today}
 
-\setlength{\parindent}{0em}
-\setlength{\parskip}{1em}
-
 \begin{document}
 
 \maketitle
@@ -45,33 +42,43 @@ elementen in de queue een grotere of gelijke prioriteit hebben aan een gegeven
 terug te vinden is in een gegeven queue en of de ordening van de gehele boom
 correct is.
 
-Bij de theorema\'s specifi\"eren we het gedrag van de priority queue en
+Bij de theorema's specifi\"eren we het gedrag van de priority queue en
 controleren we dat de correctheid bewaard blijft. In de code is er bij elk
 theorema commentaar voorzien zodat het duidelijk zou moeten zijn waartoe het
 onderstaand theorema dient.
 
 \subsection{Implementatie}
 
-De belangrijkste functies uit de "publieke" API zijn \texttt{queue-insert (k v
-queue)}, die recursief een nieuwe boom zal opbouwen waar de value \texttt{v} met
-prioriteit \texttt{k} aan toegevoegd is. Indien de queue leeg is, wordt er een
-nieuw singleton aangemaakt.
+We bespreken eerst kort de "publieke API" van de queue. Nieuwe wachtrijen
+aanmaken:
 
-\texttt{queue-find-min (queue)} zal het element met de kleinste prioriteit
-teruggeven, wat neerkomt op recursief het meest linkse kind in de boom te
-zoeken. De \texttt{queue-delete-min (queue)} functie zal dit element verwijderen
-uit de boom door een nieuwe queue op te bouwen waar dit element niet meer in te
-vinden is.
+\begin{itemize}
+    \item \texttt{queue-empty} maakt een lege wachtrij aan.
+    \item \texttt{queue-singleton k v} maakt een wachtrij aan met een element
+    met als waarde \texttt{v} en als prioriteit \texttt{k}.
+\end{itemize}
 
-\texttt{queue-merge (q1 q2)} zal zoals de naam laat vermoeden, 2 queues mergen.
-Hiervoor voegen we eerst het rechterkind van \texttt{q1} aan \texttt{q2} toe aan
-de hand van de \texttt{queue-insert} functie, vervolgens het linkerkind en als
-laatste het element zelf.
+Eigenschappen van queues opvragen:
 
-Als laatste functionaliteit hebben we \texttt{queue-change-priority (k v
-queue)}, dit zal een nieuwe lijst opbouwen waarbij alle elementen van
-\texttt{queue} gekopieerd worden buiten het element met value \texttt{v}, waar
-we de nieuwe prioriteit \texttt{k} aan zullen toekennen.
+\begin{itemize}
+    \item \texttt{queue-null queue} kijkt of de gegeven wachtrij leeg is.
+    \item \texttt{queue-size queue} bepaalt het aantal elementen in de wachtrij.
+    \item \texttt{queue-find-min-value queue} geeft de waarde terug die bij de
+    hoogste prioriteit hoort.
+\end{itemize}
+
+Wachtrijen bewerken:
+
+\begin{itemize}
+    \item \texttt{queue-insert k v queue} voegt een element met als waarde
+    \texttt{v} en als prioriteit \texttt{k} toe aan de wachtrij.
+    \item \texttt{queue-delete-min queue} verwijdert het element met de hoogste
+    prioriteit.
+    \item \texttt{queue-merge q1 q2} voegt de wachtrijen \texttt{q1} en
+    \texttt{q2} tesamen.
+    \item \texttt{queue-change-priority k v queue} verandert de prioriteit van
+    de elementen met als waarde \texttt{v} naar \texttt{k}.
+\end{itemize}
 
 \subsection{Verificatie}
 
