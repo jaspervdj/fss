@@ -4,7 +4,7 @@
 \usepackage{a4wide}
 
 \title{Project Formele Systeemmodellering voor Software}
-\author{Bruno Corijn, Jasper Vander Jeugt, Toon Willems}
+\author{Bruno Corijn, Jasper Van der Jeugt, Toon Willems}
 \date{\today}
 
 \begin{document}
@@ -85,14 +85,32 @@ verwijderen...) \texttt{queue-valid} behouden blijft. Op die manier kunnen we
 zeggen dat \texttt{queue-valid} altijd klopt als de wachtrij is opgebouwd via de
 functies uit de publieke API.
 
-TODO. In de code is er bij elk theorema commentaar voorzien zodat het duidelijk
-zou moeten zijn waartoe het onderstaand theorema dient.
+In de code is er bij elk theorema commentaar voorzien zodat het duidelijk
+zou moeten zijn waartoe het onderstaand theorema dient. Hieronder zullen we 
+in grote lijnen de theorema's overlopen.
+
+De theorema's kunnen verdeeld worden aan de hand van de functie waarover 
+ze gaan. De eerste paar theorema's bewijzen het gedrag en de geldigheid van een 
+queue die enkel uit een singleton bestaat. Vervolgens hebben we meerdere 
+theorema's die het gedrag van de \texttt{queue-insert} functie bekijken. Er 
+wordt aangetoond dat deze functie effectief een element toevoegt, er geen 
+andere elementen worden toegevoegd (of verwijderd) buiten het meegegeven 
+element en dat de correctheid van de boom bewaard blijft. 
+
+Er zijn enkele hulptheorema's te vinden die onder andere de transitiviteit van 
+\texttt{queue-all-get} aantonen en dat alle element groter zijn dan het minimum. 
+Daarna volgen er meeredere theorema's over eigenschappen van 
+\texttt{queue-delete-min}. We kunnen hiermee aantonen dat de functie enkel en 
+alleen het kleinste element zal verwijderen, de overblijvende elementen allemaal 
+groter zijn dan het verwijderde element, de correctheid bewaard blijft en de 
+boom krimpt hierdoor.
+
+De laatste theorema's controleren de geldigheid en gedrag van \texttt{queue-merge}
+en \texttt{queue-change-priority}.
 
 \subsection{Verificatie}
 
 De output van de automatische verificatie van de implementatie als binaire boom
 is te vinden als bijlage aan ons verslag.
-
-\section{Deel2: TLA/TLC}
 
 \end{document}
