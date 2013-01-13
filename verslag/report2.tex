@@ -1,0 +1,90 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[dutch]{babel}
+\usepackage{a4wide}
+
+\title{Project Formele Systeemmodellering voor Software}
+\author{Bruno Corijn, Jasper Van der Jeugt, Toon Willems}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Deel 2: TLA/TLC}
+
+Het oorspronkelijk protocol is terug te vinden in de Trein.* files, die we 
+eerst zullen bespreken. Vervolgens kijken we naar wat er verbeterd moet worden 
+, deze veranderingen zijn terug te vinden in de BeterTrein.* bestanden. 
+ 
+\subsection{Originele specificatie en vereisten}
+
+In de eerste versie zijn enkel het protocol en de vereisten gespecifi\"eerd in de 
+opgave ge\"implementeerd. Hiervoor gebruiken we de volgende variabelen:
+\begin{itemize}
+    \item \texttt{deuren} geeft aan op de conducteur de passagiersdeuren heeft 
+    gesloten.
+    \item \texttt{conductdeurDeur} geeft aan of de conducteur zijn eigen deur 
+    heeft gesloten.
+    \item \texttt{ac} geeft aan of het Action Completed signaal is gegeven.
+    \item \texttt{seinlicht} bevat de huidige kleur van het seinlicht. Dit kan 
+    rood of wit zijn.
+    \item \texttt{vertrek} geeft aan of de trein vertrokken is.
+\end{itemize}
+
+In de initi\"ele toestand zijn al deze variabelen 0, buiten het seinlicht dat op 
+rood zal staan. Deze veriabelen zullen van waarde veranderen aan de hand van de 
+volgende acties:
+\begin{itemize}
+    \item \texttt{Fluitsignaal} Vereist dat de deuren open zijn en het seinlicht 
+    op rood staat. Hierdoor worden de deuren gesloten.
+    \item \texttt{Action} Als de deuren dicht zijn, kan het AC signaal gegeven 
+    worden.
+    \item \texttt{Seinlicht} Als het AC signaal gegeven is, kan het seinlicht van
+    kleur veranderen naar wit.
+    \item \texttt{Vertrek} Indien het seinlicht op wit staat kan de trein 
+    vertrekken.
+    \item \texttt{Reset} Zet na vertrek van de trein alle variabelen terug naar 
+    hun oorspronkelijke staat.
+    \item \texttt{Deur} Als de trein vertrokken is kan de conducteur zijn deur 
+    sluiten.
+\end{itemize}
+
+Daarnaast hebben we ook nog specificaties \texttt{Next} dat altijd een van de 
+bovenstaande acties zal zijn, \texttt{Live} die ervoor zorgt dat de 
+variabelen correct blijven en \texttt{Spec} die specifi\"eert dat het programma
+altijd start uit de initi\"ele toestand, via \texttt{Next} in de huidige toestand 
+kan belanden en dat \texttt{Live} altijd geldt.  
+
+Als laatste hebben we de veiligheid- en fairnessvereisten van dit systeem die 
+ge\"impliceerd worden door \texttt{Spec}. Dit zijn de volgende: 
+
+\begin{itemize}
+    \item \texttt{VertrekNaAc} Na het geven van het AC signaal zal het seinlicht 
+    verspringen van kleur.
+    \item \texttt{RoodSeinlichtDefault} In de begintoestand is het seinlicht 
+    altijd rood.
+    \item \texttt{Fairness} Als het seinlicht wit is, zal de trein vertrekken.
+    \item \texttt{Veiligheid} De trein mag niet vertrekken zonder de conducteur.
+    \item \texttt{OoitVertrek} De trein al ooit vertrekken.
+\end{itemize}
+
+\subsection{Problemen}
+
+Door de automatische modelchecker zien we dat de veiligheidsvereiste kan 
+geschonden worden door het bestaande protocol, dit zullen we oplossen in de 
+verbeterde versie.
+
+\subsection{Verbeteringen}
+
+Om te voorkomen dat de trein kan vertrekken zonder de conducteur is er een extra 
+regel toegevoegd aan de \texttt{Vertrek} actie, die vereist dat de deur van de 
+conducteur gesloten is alvorens de trein kan vertrekken. Hierdoor is er wel 
+voldaan aan de veiligheidsvereiste
+
+\subsection{Verificatie}
+
+De output en configuratie van de automatische verificatie van beide versies zijn 
+te vinden als bijlages aan ons verslag.
+
+\end{document}
