@@ -165,7 +165,7 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.13 seconds (prove: 0.12, print: 0.00, other: 0.00)
+Time:  0.13 seconds (prove: 0.12, print: 0.01, other: 0.00)
 Prover steps counted:  3798
  QUEUE-SIZE
 ACL2 !>>
@@ -238,7 +238,7 @@ Rules: ((:COMPOUND-RECOGNIZER NATP-COMPOUND-RECOGNIZER)
         (:REWRITE UNICITY-OF-0)
         (:TYPE-PRESCRIPTION QUEUE-SINGLETON)
         (:TYPE-PRESCRIPTION QUEUE-SIZE))
-Time:  0.07 seconds (prove: 0.06, print: 0.01, other: 0.00)
+Time:  0.07 seconds (prove: 0.07, print: 0.00, other: 0.00)
 Prover steps counted:  1924
  QUEUE-INSERT
 ACL2 !>>
@@ -278,9 +278,18 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.03 seconds (prove: 0.03, print: 0.00, other: 0.00)
+Time:  0.04 seconds (prove: 0.03, print: 0.00, other: 0.00)
 Prover steps counted:  849
  QUEUE-FIND-MIN
+ACL2 !>>
+Since QUEUE-FIND-MIN-VALUE is non-recursive, its admission is trivial.
+We could deduce no constraints on the type of QUEUE-FIND-MIN-VALUE.
+
+Summary
+Form:  ( DEFUN QUEUE-FIND-MIN-VALUE ...)
+Rules: NIL
+Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+ QUEUE-FIND-MIN-VALUE
 ACL2 !>>
 For the admission of QUEUE-DELETE-MIN we will use the relation O< (which
 is known to be well-founded on the domain recognized by O-P) and the
@@ -450,7 +459,7 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT)
         (:TYPE-PRESCRIPTION QUEUE-INSERT))
-Time:  0.15 seconds (prove: 0.14, print: 0.00, other: 0.00)
+Time:  0.15 seconds (prove: 0.14, print: 0.01, other: 0.00)
 Prover steps counted:  3798
  QUEUE-CHANGE-PRIORITY
 ACL2 !>>
@@ -516,7 +525,7 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.18 seconds (prove: 0.17, print: 0.01, other: 0.00)
+Time:  0.18 seconds (prove: 0.17, print: 0.00, other: 0.00)
 Prover steps counted:  5021
  QUEUE-ALL-LT
 ACL2 !>>
@@ -582,7 +591,7 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.18 seconds (prove: 0.17, print: 0.01, other: 0.00)
+Time:  0.18 seconds (prove: 0.16, print: 0.01, other: 0.00)
 Prover steps counted:  4859
  QUEUE-ALL-GET
 ACL2 !>>
@@ -669,7 +678,7 @@ Rules: ((:DEFINITION =)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.35 seconds (prove: 0.33, print: 0.02, other: 0.00)
+Time:  0.35 seconds (prove: 0.34, print: 0.01, other: 0.00)
 Prover steps counted:  9320
  QUEUE-CONTAINS
 ACL2 !>>
@@ -781,7 +790,7 @@ Rules: ((:DEFINITION ACL2-COUNT)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE DEFAULT-CDR)
         (:TYPE-PRESCRIPTION ACL2-COUNT))
-Time:  0.53 seconds (prove: 0.51, print: 0.02, other: 0.00)
+Time:  0.52 seconds (prove: 0.50, print: 0.01, other: 0.00)
 Prover steps counted:  14441
  QUEUE-VALID
 ACL2 !>>
@@ -838,7 +847,7 @@ Rules: ((:DEFINITION QUEUE-ALL-GET)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
 Warnings:  Non-rec
-Time:  0.00 seconds (prove: 0.00, print: 0.00, other: 0.00)
+Time:  0.01 seconds (prove: 0.00, print: 0.00, other: 0.00)
 Prover steps counted:  113
  QUEUE-SINGLETON-VALID
 ACL2 !>>
@@ -1057,7 +1066,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-ALL-GET))
-Time:  0.09 seconds (prove: 0.09, print: 0.00, other: 0.00)
+Time:  0.10 seconds (prove: 0.09, print: 0.01, other: 0.00)
 Prover steps counted:  3664
  QUEUE-INSERT-LARGER
 ACL2 !>>
@@ -1143,7 +1152,7 @@ Rules: ((:DEFINITION NOT)
         (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  0.33 seconds (prove: 0.32, print: 0.01, other: 0.00)
+Time:  0.31 seconds (prove: 0.30, print: 0.01, other: 0.00)
 Prover steps counted:  10600
  QUEUE-INSERT-VALID
 ACL2 !>>
@@ -1256,7 +1265,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
-Time:  0.69 seconds (prove: 0.67, print: 0.02, other: 0.00)
+Time:  0.69 seconds (prove: 0.68, print: 0.01, other: 0.00)
 Prover steps counted:  25706
  QUEUE-INSERT-ALREADY-CONTAINS
 ACL2 !>>
@@ -1327,7 +1336,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
-Time:  0.23 seconds (prove: 0.23, print: 0.00, other: 0.00)
+Time:  0.23 seconds (prove: 0.22, print: 0.01, other: 0.00)
 Prover steps counted:  8033
  QUEUE-INSERT-CONTAINS
 ACL2 !>>Goal'
@@ -1468,7 +1477,7 @@ Rules: ((:DEFINITION =)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
-Time:  0.64 seconds (prove: 0.63, print: 0.01, other: 0.00)
+Time:  0.63 seconds (prove: 0.62, print: 0.01, other: 0.00)
 Prover steps counted:  26386
  QUEUE-INSERT-NOT-CONTAINS
 ACL2 !>>
@@ -2066,7 +2075,7 @@ Rules: ((:DEFINITION NOT)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
 Warnings:  Non-rec
-Time:  12.72 seconds (prove: 12.65, print: 0.07, other: 0.00)
+Time:  12.65 seconds (prove: 12.57, print: 0.07, other: 0.00)
 Prover steps counted:  344001
  QUEUE-FIND-MIN-ALL-GET
 ACL2 !>>Goal'
@@ -2163,7 +2172,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE CAR-CONS)
         (:REWRITE CDR-CONS)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT))
-Time:  0.19 seconds (prove: 0.18, print: 0.01, other: 0.00)
+Time:  0.18 seconds (prove: 0.18, print: 0.01, other: 0.00)
 Prover steps counted:  6865
  QUEUE-DELETE-MIN-ALL-SMALLER
 ACL2 !>>Goal'
@@ -2287,7 +2296,7 @@ Rules: ((:DEFINITION NOT)
         (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  0.44 seconds (prove: 0.43, print: 0.01, other: 0.00)
+Time:  0.43 seconds (prove: 0.41, print: 0.01, other: 0.00)
 Prover steps counted:  13751
  QUEUE-DELETE-MIN-VALID
 ACL2 !>>
@@ -2435,7 +2444,7 @@ Rules: ((:DEFINITION NOT)
         (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT))
 Warnings:  Non-rec
-Time:  0.54 seconds (prove: 0.52, print: 0.02, other: 0.00)
+Time:  0.54 seconds (prove: 0.52, print: 0.02, other: 0.01)
 Prover steps counted:  17388
  QUEUE-FIND-MIN-DELETE-MIN
 ACL2 !>>Goal'
@@ -2570,7 +2579,7 @@ Rules: ((:DEFINITION FIX)
         (:TYPE-PRESCRIPTION QUEUE-ALL-GET)
         (:TYPE-PRESCRIPTION QUEUE-ALL-LT)
         (:TYPE-PRESCRIPTION QUEUE-SIZE))
-Time:  0.43 seconds (prove: 0.41, print: 0.01, other: 0.00)
+Time:  0.43 seconds (prove: 0.41, print: 0.02, other: 0.00)
 Prover steps counted:  13824
  QUEUE-DELETE-MIN-SMALLER-SIZE
 ACL2 !>>Goal'
@@ -3469,7 +3478,7 @@ Rules: ((:DEFINITION =)
         (:REWRITE DEFAULT-CAR)
         (:REWRITE QUEUE-ALL-GET-TRANSITIVITY)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS))
-Time:  9.07 seconds (prove: 8.94, print: 0.13, other: 0.00)
+Time:  9.07 seconds (prove: 8.96, print: 0.11, other: 0.00)
 Prover steps counted:  295335
  QUEUE-DELETE-MIN-CONTAINS
 ACL2 !>>
@@ -3534,7 +3543,7 @@ Rules: ((:DEFINITION NOT)
         (:INDUCTION QUEUE-MERGE)
         (:INDUCTION QUEUE-VALID)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  0.37 seconds (prove: 0.37, print: 0.01, other: 0.00)
+Time:  0.37 seconds (prove: 0.37, print: 0.00, other: 0.00)
 Prover steps counted:  11562
  QUEUE-MERGE-VALID
 ACL2 !>>
@@ -3725,7 +3734,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE QUEUE-MERGE-VALID)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  1.63 seconds (prove: 1.61, print: 0.02, other: 0.00)
+Time:  1.64 seconds (prove: 1.63, print: 0.02, other: 0.00)
 Prover steps counted:  50555
  QUEUE-MERGE-CONTAINS-LEFT
 ACL2 !>>
@@ -3839,7 +3848,7 @@ Rules: ((:DEFINITION NOT)
         (:REWRITE QUEUE-INSERT-NOT-CONTAINS)
         (:REWRITE QUEUE-MERGE-VALID)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  1.79 seconds (prove: 1.78, print: 0.01, other: 0.00)
+Time:  1.80 seconds (prove: 1.78, print: 0.02, other: 0.00)
 Prover steps counted:  54716
  QUEUE-MERGE-NOT-CONTAINS
 ACL2 !>>
@@ -3904,7 +3913,7 @@ Rules: ((:DEFINITION NOT)
         (:INDUCTION QUEUE-CHANGE-PRIORITY)
         (:INDUCTION QUEUE-VALID)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
-Time:  0.44 seconds (prove: 0.44, print: 0.00, other: 0.00)
+Time:  0.44 seconds (prove: 0.44, print: 0.01, other: 0.00)
 Prover steps counted:  13865
  QUEUE-CHANGE-PRIORITY-VALID
 ACL2 !>>
@@ -4034,7 +4043,7 @@ Rules: ((:DEFINITION NOT)
         (:TYPE-PRESCRIPTION QUEUE-CONTAINS)
         (:TYPE-PRESCRIPTION QUEUE-VALID))
 Warnings:  Free
-Time:  2.50 seconds (prove: 2.48, print: 0.02, other: 0.00)
+Time:  2.51 seconds (prove: 2.50, print: 0.01, other: 0.00)
 Prover steps counted:  76753
  QUEUE-CHANGE-PRIORITY-CONTAINS
 ACL2 !>>Goal'
@@ -4121,4 +4130,5 @@ Prover steps counted:  21153
 ACL2 !>> TEST-TREE
 ACL2 !>>Bye.
  :EOF
-ACL2 !>
+ACL2 !>Bye.
+Bye.

@@ -72,6 +72,12 @@
                 left-min
                 queue))))
 
+; Find the minimum value of the queue, a higher-level interface than
+; 'queue-find-min'.
+
+(defun queue-find-min-value (queue)
+    (queue-value (queue-find-min queue)))
+
 ; Delete the minimum node of the queue.
 
 (defun queue-delete-min (queue)
