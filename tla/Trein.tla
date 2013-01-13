@@ -47,7 +47,7 @@ Reset ==
       /\ ac' = 0
       /\ vertrek' = 0
 
-Deur ==
+Deur == vertrek = 1
       /\ conducteurDeur = 0
       /\ conducteurDeur' = 1
       /\ UNCHANGED <<deuren, ac, seinlicht, vertrek>>
