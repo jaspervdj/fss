@@ -1,0 +1,21 @@
+TLC2 Version 2.05 of 7 April 2012
+Running in Model-Checking mode.
+Parsing file BeterTrein.tla
+Parsing file /Users/nudded/Projects/UGent/FSS/tla/tla2sany/StandardModules/Naturals.tla
+Parsing file /Users/nudded/Projects/UGent/FSS/tla/tla2sany/StandardModules/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module BeterTrein
+Starting... (2013-01-13 15:55:02)
+Implied-temporal checking--satisfiability problem has 3 branches.
+Computing initial states...
+Finished computing initial states: 1 distinct state generated.
+Checking temporal properties for the complete state space...
+Model checking completed. No error has been found.
+  Estimates of the probability that TLC did not check all reachable states
+  because two distinct states had the same fingerprint:
+  calculated (optimistic):  val = 2E-18
+  based on the actual fingerprints:  val = 3.4E-18
+13 states generated, 9 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 6.
+Finished. (2013-01-13 15:55:02)

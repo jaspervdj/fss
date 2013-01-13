@@ -1,0 +1,52 @@
+TLC2 Version 2.05 of 7 April 2012
+Running in Model-Checking mode.
+Parsing file Trein.tla
+Parsing file /Users/nudded/Projects/UGent/FSS/tla/tla2sany/StandardModules/Naturals.tla
+Parsing file /Users/nudded/Projects/UGent/FSS/tla/tla2sany/StandardModules/Sequences.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module Trein
+Starting... (2013-01-13 15:55:14)
+Implied-temporal checking--satisfiability problem has 3 branches.
+Computing initial states...
+Finished computing initial states: 1 distinct state generated.
+Error: Invariant Veiligheid is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ ac = 0
+/\ vertrek = 0
+/\ conducteurDeur = 0
+/\ seinlicht = "rood"
+/\ deuren = 0
+
+State 2: <Action line 23, col 7 to line 25, col 76 of module Trein>
+/\ ac = 0
+/\ vertrek = 0
+/\ conducteurDeur = 0
+/\ seinlicht = "rood"
+/\ deuren = 1
+
+State 3: <Action line 27, col 11 to line 30, col 65 of module Trein>
+/\ ac = 1
+/\ vertrek = 0
+/\ conducteurDeur = 0
+/\ seinlicht = "rood"
+/\ deuren = 1
+
+State 4: <Action line 32, col 14 to line 35, col 58 of module Trein>
+/\ ac = 1
+/\ vertrek = 0
+/\ conducteurDeur = 0
+/\ seinlicht = "wit"
+/\ deuren = 1
+
+State 5: <Action line 37, col 12 to line 40, col 60 of module Trein>
+/\ ac = 1
+/\ vertrek = 1
+/\ conducteurDeur = 0
+/\ seinlicht = "wit"
+/\ deuren = 1
+
+5 states generated, 5 distinct states found, 1 states left on queue.
+The depth of the complete state graph search is 5.
+Finished. (2013-01-13 15:55:14)
